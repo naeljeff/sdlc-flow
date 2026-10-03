@@ -2,6 +2,8 @@
 
 Review in proportion to the change. For substantial or high-risk work, do this explicitly before claiming completion; a separate reviewer is optional when an independent context would materially help.
 
+Use an independent reviewer when a consequential failure could hide in a state transition, boundary, or end-to-end path that the implementer has not independently checked. Give the reviewer the acceptance criteria, changed diff, relevant context, and specific unresolved invariant; ask for plausible counterexamples, not a rerun of the same green checks. Prefer one review of the integrated behavior unless separable slices each carry material risk. If delegation costs more than its likely new evidence, perform the same adversarial check yourself.
+
 ## Diff review
 
 - Compare against the task's starting revision and protect unrelated changes.
@@ -9,6 +11,7 @@ Review in proportion to the change. For substantial or high-risk work, do this e
 - Look for incorrect assumptions, missing cases, data loss, races, unsafe input handling, widened authorization, secrets, and dependency or configuration changes.
 - For changes on trust boundaries, follow input from source to sink and check authentication, authorization, validation, and error handling at the actual enforcement point. For performance-sensitive paths, inspect likely hot paths and measure before claiming an improvement.
 - Check that new tests exercise the reported symptom or acceptance path and that they could fail for a broken implementation.
+- For stateful or cross-boundary changes, challenge the planned invariants and checks for omitted material failure modes, including changed state, delayed work, partial results, and error translation. Check that the final evidence reaches the caller or user, not just the edited component.
 - Remove unnecessary abstractions, dead code, and scope expansion. Explain any material concern left open.
 
 ## Evidence review

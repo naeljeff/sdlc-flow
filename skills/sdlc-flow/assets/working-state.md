@@ -7,9 +7,12 @@
 
 ## Current position
 - Current slice:
-- Completed milestones:
-- Remaining milestones:
 - Exact next action:
+
+## Slices (use for multi-slice or interruptible work)
+| Slice and acceptance outcome | Status | Acceptance evidence and revision | Owner / reviewer |
+| --- | --- | --- | --- |
+| <smallest checkable slice> | pending / in progress / blocked / verified | <check, result, files or revision> | <one owner; reviewer if used> |
 
 ## Decisions and verified findings
 | Decision or fact | Why it matters | Evidence or source | Still valid? |
