@@ -41,11 +41,13 @@ The skill chooses effort from the task's size and risk:
 | Work | Default behavior |
 | --- | --- |
 | Bounded edit | Inspect, change, focused check. No task files by default. |
-| Multi-step feature or defect | Short plan, end-to-end slices, relevant checks, diff review. |
-| Broad or interrupted task | One task-local `STATE.md` with decisions, evidence, and exact next action. |
+| Multi-step feature or defect | Short plan, end-to-end slices, relevant checks, and diff review. For stateful or cross-component work, use a small, risk-ranked set of checks for distinct failure modes across material changed boundaries or transitions. |
+| Broad or interrupted task | One task-local `STATE.md` with compact per-slice status, acceptance evidence, ownership when delegated, and an exact next action. |
 | UI or high-risk change | Load the matching playbook and verify the visible path or trust boundary. |
 
-The main entrypoint is [skills/sdlc-flow/SKILL.md](skills/sdlc-flow/SKILL.md). It links to the packaged references. [Source selection](docs/selection.md) explains the design choices, and [validation evidence](docs/validation.md) records the first release checks. [Third-party notices](skills/sdlc-flow/THIRD_PARTY_NOTICES.md) and the [source lock](skills/sdlc-flow/SOURCES.lock.json) show the upstream material bundled in this release. The vendored files are optional source snapshots, not separately discoverable skills or runtime dependencies.
+Independent review is selective: use it when another context is likely to find a consequential gap in a state transition, boundary, or user path. Ask for distinct counterexamples rather than another pass over the implementer's green checks. Keep progress checkpoints tied to verified slices, decisions, failures, and handoffs instead of logging every tool call.
+
+The main entrypoint is [skills/sdlc-flow/SKILL.md](skills/sdlc-flow/SKILL.md). It links to the packaged references. [Source selection](docs/selection.md) explains the design choices, [initial validation evidence](docs/validation.md) records the first release checks, [benchmark method](docs/benchmark.md) describes repeatable cross-domain comparisons, and the [0.2.0 evaluation record](docs/evaluation-2026-10-04.md) reports the mixed results and limits. [Third-party notices](skills/sdlc-flow/THIRD_PARTY_NOTICES.md) and the [source lock](skills/sdlc-flow/SOURCES.lock.json) show the upstream material bundled in this release. The vendored files are optional source snapshots, not separately discoverable skills or runtime dependencies.
 
 ## Scope and evidence
 
