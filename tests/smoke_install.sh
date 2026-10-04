@@ -17,7 +17,7 @@ for installed in "$test_root/project/.agents/skills/sdlc-flow" "$test_root/proje
   test -f "$installed/SKILL.md"
   python3 "$repo_root/tests/validate_package.py" --skill-dir "$installed"
   if [[ "$source" == "$repo_root" ]]; then
-    diff -qr "$repo_root/skills/sdlc-flow" "$installed"
+    diff -qr -x __pycache__ -x "*.pyc" "$repo_root/skills/sdlc-flow" "$installed"
   fi
 done
 

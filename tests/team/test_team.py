@@ -270,14 +270,16 @@ class TeamTests(unittest.TestCase):
         self.assertEqual(sorted(p.returncode for p in commands), [0, 2])
         self.assertIn('revision conflict', ''.join(err for _, err in outputs))
         self.assertEqual(self.state()['revision'], rev + 1)
-        # Abrupt death releases the OS lock; orphan atomic-write temporary files are not authority.
-        script = 'import fcntl,time; f=open(%r,"r+"); fcntl.flock(f,fcntl.LOCK_EX); print("locked",flush=True); time.sleep(60)' % str(self.task / '.lock')
-        if os.name != 'nt':
-            holder = subprocess.Popen([sys.executable, '-c', script], stdout=subprocess.PIPE, text=True)
-            self.assertEqual(holder.stdout.readline().strip(), 'locked')
-            holder.kill()
-            holder.wait(timeout=5)
-            holder.stdout.close()
+        # Abrupt death releases the OS lock on both platform implementations.
+        if os.name == 'nt':
+            script = 'import msvcrt,time; f=open(%r,"r+"); f.seek(0); msvcrt.locking(f.fileno(),msvcrt.LK_LOCK,1); print("locked",flush=True); time.sleep(60)' % str(self.task / '.lock')
+        else:
+            script = 'import fcntl,time; f=open(%r,"r+"); fcntl.flock(f,fcntl.LOCK_EX); print("locked",flush=True); time.sleep(60)' % str(self.task / '.lock')
+        holder = subprocess.Popen([sys.executable, '-c', script], stdout=subprocess.PIPE, text=True)
+        self.assertEqual(holder.stdout.readline().strip(), 'locked')
+        holder.kill()
+        holder.wait(timeout=5)
+        holder.stdout.close()
         (self.task / '.pending-crashed').write_text('{ incomplete')
         self.cli('checkpoint')
         self.assertEqual(self.state()['revision'], rev + 2)
@@ -367,15 +369,16 @@ class TeamTests(unittest.TestCase):
     def test_mode_change_and_hardlink_copy_are_accounted(self):
         ws = self.add()
         self.running()
-        path = ws / 'src/a.py'
-        path.chmod(path.stat().st_mode | 0o111)
-        value = self.result()
-        self.assertTrue(value['manifest'][0]['executable'])
-        wrong = dict(value, manifest=[dict(value['manifest'][0], executable=False)])
-        self.cli('ingest', '--input', self.write('wrong-mode.json', wrong), fail='executable mode')
-        self.cli('ingest', '--input', self.write('result.json', value))
-        self.integrate()
-        self.assertTrue((self.repo / 'src/a.py').stat().st_mode & 0o111)
+        if os.name != 'nt':  # Windows chmod does not implement POSIX execute bits.
+            path = ws / 'src/a.py'
+            path.chmod(path.stat().st_mode | 0o111)
+            value = self.result()
+            self.assertTrue(value['manifest'][0]['executable'])
+            wrong = dict(value, manifest=[dict(value['manifest'][0], executable=False)])
+            self.cli('ingest', '--input', self.write('wrong-mode.json', wrong), fail='executable mode')
+            self.cli('ingest', '--input', self.write('result.json', value))
+            self.integrate()
+            self.assertTrue((self.repo / 'src/a.py').stat().st_mode & 0o111)
         linked = self.root / 'hardlink-copy'
         shutil.copytree(self.repo, linked, copy_function=os.link, ignore=shutil.ignore_patterns('.sdlc-flow'))
         assignment = {'id': 'linked', 'agent': 'linked-worker', 'role': 'writer', 'workspace': str(linked),
