@@ -17,3 +17,11 @@ Independent review found that an exit-zero CLI could be recorded as successful d
 The reviewed runner hashes are `cdd72a4da24a140ad0c682f924b5e14d70b43025d8d1be8ff4f8c91f3d249e69` (`probe.py`) and `f8a8190c8e244fd9815cba333e3ffb89f141bebadf9d9656beec29981a5a77f6` (`evaluate.py`). Four structured-receipt regressions plus 15 state tests pass locally, and the mechanical integration self-test rejects a composed defect, crashed grader and dirty mutation. The independent preflight approved exactly eight fresh correctness sessions with frozen assessment/arms/routes. This is launch approval, not a passing benchmark result.
 
 Observed versions: Codex CLI `0.159.3`, Claude Code `2.1.267`, macOS. [Runner commands](../../tests/team/README.md) and the [assessment protocol](evaluation-protocol.md) distinguish private controls from public tooling. Full-workflow usage remains unknown where descendant/reviewer coverage is unavailable. Native compaction is unobserved.
+
+## Claude Code scoped profile
+
+A separately reviewed compatibility run succeeded with a narrow, per-invocation allowlist for the two inert probe commands. The original headless profile that denied Bash remains a recorded failure. Structured Claude events linked each native Agent task to its exact command, reported model at that command, PID, matching packet/result, and overlapping intervals. The two command actions reported `muse-spark-1-3-contributor` and `gemini-3-8-flash`; their child turns reported additional route names. Independent review verified the causal trace, the preserved unrelated draft, and 1.011 seconds of overlap.
+
+This shows heterogeneous execution through the configured composite Claude route on this installation. It does not establish stable `sonnet`/`haiku` routing, Anthropic upstream identity, or parity with the Codex pilot. The allowlist denied an unrelated shell command. No broad permission bypass or global configuration change was used. See the private sanitized receipts locally at `work/sdlc-team-evaluation-private/probe-receipts/claude-overlap-scoped-1/`; they are intentionally excluded from the public package.
+
+CI at `d8d3cf2` passed all package/install jobs and the POSIX mechanical composition check. The runner reports descendant token coverage and complete timing as unknown; this compatibility test is not a throughput benchmark.
