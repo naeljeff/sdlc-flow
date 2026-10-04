@@ -8,7 +8,7 @@ This work implements the approved parallel-delivery proposal in phases. Baseline
 | 2 | Optional stdlib state helper, contracts, freshness, contextual handoffs | Complete | 15 macOS tests, independent adversarial review, package validation; see [phase 2](phase-2.md) |
 | 3 | Native heterogeneous routes and capability probes | Complete with host limits | Codex causal heterogeneous overlap verified; initial Claude headless profile blocked; 19 local tests and independent runner review; see [phase 3](phase-3.md) |
 | 4 | Integration and long-session recovery | Implementation updated; end-to-end recovery not demonstrated | v2.5.1 stopped at phase 0 (`COMPLETED_PENDING=false`); canonical worker state remained live with unindexed results. Fixed same-state terminal transition behavior and documented ingest-before-reset; no new trajectory run yet; see [phase 4](phase-4.md) |
-| 5 | Matched evaluation, clean install, local package update | Pending | Pilot validity precedes scored attempts; claims depend on results |
+| 5 | Matched evaluation, clean install, local package update | Complete with one routing failure; performance superiority not established | Frozen `0.3.0-team.1` pilot: 4/4 candidate vs 3/4 standalone `dev` objective passes, with 7/8 routing checks; GitHub and local Skill Hub copies of `0.3.0-team.3` validated. The updated phase-4 behavior was not in the pilot; see [phase 5](phase-5.md) |
 
 ## Publication policy
 
