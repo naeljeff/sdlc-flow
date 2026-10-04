@@ -2,7 +2,9 @@
 
 One installable Agent Skill for software development from request to verified result. It gives a coding agent a small common loop and loads focused playbooks for planning, debugging, UI work, review, and long-task recovery only when they fit the task.
 
-The skill uses the agent's ordinary file, search, shell, and repository tools. No controller, daemon, hook, MCP server, API key, model route, or second skill installation is required. Any upstream guidance used by the skill is included in the installed folder with provenance and licenses.
+The `0.3.0-team.1` development candidate adds an explicit Team mode: one orchestrator, native parallel workers, available model routing, common task knowledge, isolated code changes, and verification of the integrated product. Phase implementation and current evidence are recorded in the [team ledger](docs/team/implementation.md). It is a development candidate; performance superiority is not established.
+
+The skill uses the agent's ordinary tools. No separately installed controller, daemon, hook, MCP server, or second skill is required. Parallel agents and model choices use capabilities already exposed by the host; the skill does not supply models or authentication. Any upstream guidance used by the skill is included in the installed folder with provenance and licenses.
 
 ## Install
 
@@ -43,9 +45,10 @@ The skill chooses effort from the task's size and risk:
 | Bounded edit | Inspect, change, focused check. No task files by default. |
 | Multi-step feature or defect | Short plan, end-to-end slices, relevant checks, and diff review. For stateful or cross-component work, use a small, risk-ranked set of checks for distinct failure modes across material changed boundaries or transitions. |
 | Broad or interrupted task | One task-local `STATE.md` with compact per-slice status, acceptance evidence, ownership when delegated, and an exact next action. |
+| Requested team or substantial independent slices | One orchestrator schedules bounded native workers, publishes accepted shared facts, integrates isolated changes, and obtains independent review of the combined outcome. |
 | UI or high-risk change | Load the matching playbook and verify the visible path or trust boundary. |
 
-Independent review is selective: use it when another context is likely to find a consequential gap in a state transition, boundary, or user path. Ask for distinct counterexamples rather than another pass over the implementer's green checks. Keep progress checkpoints tied to verified slices, decisions, failures, and handoffs instead of logging every tool call.
+Independent review is selective in solo mode. Team mode requires a fresh independent review of the integrated candidate. In solo mode, use it when another context is likely to find a consequential gap in a state transition, boundary, or user path. Ask for distinct counterexamples rather than another pass over the implementer's green checks. Keep progress checkpoints tied to verified slices, decisions, failures, and handoffs instead of logging every tool call.
 
 The main entrypoint is [skills/sdlc-flow/SKILL.md](skills/sdlc-flow/SKILL.md). It links to the packaged references. [Source selection](docs/selection.md) explains the design choices, [initial validation evidence](docs/validation.md) records the first release checks, [benchmark method](docs/benchmark.md) describes repeatable cross-domain comparisons, and the [0.2.0 evaluation record](docs/evaluation-2026-10-04.md) reports the mixed results and limits. [Third-party notices](skills/sdlc-flow/THIRD_PARTY_NOTICES.md) and the [source lock](skills/sdlc-flow/SOURCES.lock.json) show the upstream material bundled in this release. The vendored files are optional source snapshots, not separately discoverable skills or runtime dependencies.
 

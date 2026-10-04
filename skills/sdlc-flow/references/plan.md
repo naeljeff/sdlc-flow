@@ -10,6 +10,7 @@ State:
 - Constraints from the user, project instructions, API/contracts, and existing changes.
 - Ordered, end-to-end slices; for each, the user-visible or API outcome and a check capable of detecting a likely failure.
 - Dependencies, critical path, and genuinely independent branches. Keep interface or data contract decisions ahead of dependent implementation.
+- For Team mode, map acceptance IDs and independent slices to owners, isolated workspaces, dependency state, and requirements revisions. Use [orchestrate.md](orchestrate.md) to dispatch ready work.
 - Assumptions that need a probe before implementation.
 
 For a slice involving state over time or component boundaries, state what must remain true for the caller or user across each material changed boundary or transition. Choose a small, risk-ranked set of nonredundant counterexamples from changed identity or state, delayed or reordered work, partial success, unavailable dependencies, invalid input, and errors whose meaning changes across layers. Use the cheapest observable check that could expose each distinct high-risk failure mode before marking the slice verified; one check may cover several modes. Do this once at planning or when a new boundary appears, not on every tool call. A bounded, well-understood calculation needs no extra matrix.

@@ -1,5 +1,7 @@
 # Keep long work resumable
 
+For Team mode, keep the dependency board and accepted memory in the task-owned directory described by [shared-memory.md](shared-memory.md). Use one canonical record; do not maintain this solo template as a second conflicting authority. Persist live agent IDs and assignment generations. On resume, check whether an owner is live before dispatching a replacement.
+
 Create state only when interruption, multiple sessions, or coordination makes forgotten intent expensive to reconstruct. Use one task-owned directory such as `.sdlc-flow/tasks/<issue-or-date-slug>/STATE.md`; reuse it on continuation. Do not overwrite another task's state or introduce a shared active pointer. If multiple tasks could match “continue,” use current Git changes and recent state to identify the right one; ask only if ambiguity remains.
 
 Copy [working-state.md](../assets/working-state.md) and fill the sections that matter. Keep acceptance and constraints stable; revise them when the user changes the task. For multi-slice or interruptible work, keep one compact row per slice with its status, acceptance evidence, and owner or reviewer when delegated. The single Exact next action in Current position is authoritative. One orchestrator owns the shared state; workers return findings or write separate notes rather than competing to edit it. A plan says what should happen; the state reports what actually happened.

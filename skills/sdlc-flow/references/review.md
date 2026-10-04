@@ -1,6 +1,8 @@
 # Review the actual diff and completion evidence
 
-Review in proportion to the change. For substantial or high-risk work, do this explicitly before claiming completion; a separate reviewer is optional when an independent context would materially help.
+For Team mode, review the integrated candidate in a fresh independent context. Give the reviewer current acceptance IDs, constraints, combined diff, source identity, and evidence. Verify combined behavior beyond the workers' local checks; renew affected review evidence after source or requirements change. Worker completion and a reviewer's approval sentence do not establish acceptance by themselves.
+
+In solo mode, review in proportion to the change. For substantial or high-risk work, do this explicitly before claiming completion; a separate reviewer is optional when an independent context would materially help. Team mode follows the independent gate above.
 
 Use an independent reviewer when a consequential failure could hide in a state transition, boundary, or end-to-end path that the implementer has not independently checked. Give the reviewer the acceptance criteria, changed diff, relevant context, and specific unresolved invariant; ask for plausible counterexamples, not a rerun of the same green checks. Prefer one review of the integrated behavior unless separable slices each carry material risk. If delegation costs more than its likely new evidence, perform the same adversarial check yourself.
 
