@@ -1,5 +1,7 @@
 # One orchestrator, bounded workers
 
+Use the [assignment](../assets/assignment.json) and [result](../assets/worker-result.json) contracts. The optional [record helper](team-helper.md) validates task consistency through [team.py](../scripts/team.py); it does not launch agents or prove software correctness.
+
 Use Team mode for independent substantial slices or when the user requests parallel agents. Use native agent tools when the host provides them. Read [host-adapters.md](host-adapters.md) before selecting routes. A sequential task stays with one agent.
 
 ## Shape the board
@@ -12,7 +14,7 @@ The board distinguishes pending, ready, running, review, integrated, verified, b
 
 ## Dispatch
 
-The orchestrator owns canonical task state and accepted memory. Give every worker a bounded assignment: outcome, current constraints, relevant acceptance IDs, dependencies, source snapshot, owned paths, workspace, checks, shared-memory revision, result destination, and next action. Use the packaged templates once available; a plain file with these fields also works.
+The orchestrator owns canonical task state and accepted memory. Give every worker a bounded assignment: outcome, current constraints, relevant acceptance IDs, dependencies, source snapshot, owned paths, workspace, checks, shared-memory revision, result destination, and next action. Use the packaged contracts; the same fields can be maintained through host file tools when the optional helper is unavailable.
 
 Workers read shared facts before acting on an interface and before returning a result. They submit sourced discoveries in their own inbox; they do not rewrite shared decisions or launch untracked agents. If a contract or ownership must change, return a request to the orchestrator. Checkpoint partial work before a handoff. See [shared-memory.md](shared-memory.md).
 

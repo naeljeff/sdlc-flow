@@ -1,5 +1,7 @@
 # Common task knowledge
 
+In helper-managed mode, `state.json` is the sole canonical record. Generated brief, assignment, status, and memory files are projections that can be stale after interruption; use `status` or `context` against canonical state on recovery. See the installed [helper contract](team-helper.md) for commands and actual schemas.
+
 All agents use one accepted knowledge source at a known revision. Shared files are external memory, not a shared model context window. The orchestrator alone updates canonical requirements, facts, decisions, and assignment state. Workers publish proposed updates in separate task-owned inboxes; the orchestrator verifies their sources, resolves conflicts, and makes accepted updates available to affected workers.
 
 Create a task-local directory under `.sdlc-flow/tasks/<id>/` for Team mode. Keep the effective brief, dependency board, accepted facts, assignment contracts, inboxes, evidence, and checkpoints there. Do not overwrite another task or use a shared active-task pointer. A compact readable status view should expose owners, blocked work, integrated outcomes, evidence, and one exact next action. It is a view of canonical records, not a competing authority.

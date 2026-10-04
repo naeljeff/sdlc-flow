@@ -1,0 +1,25 @@
+# Phase 2: shared task state mechanics
+
+This phase adds an optional Python standard-library helper and concrete assignment/result templates to the installed skill folder. It runs through ordinary host tools; there is no separate controller installation, daemon, database, credential store, or provider API client.
+
+The effective brief is JSON with an outcome, acceptance IDs/text, constraints, preserved behavior, prohibited effects, and shared interfaces. One orchestrator owns canonical mutations. Workers return bounded results and sourced findings. Readable status/memory views are derived from canonical state.
+
+The helper checks ownership, dependency order, workspace isolation, task/requirements/generation identity, actual changed-path manifests, source-backed fact freshness, immutable results, and current evidence. The final gate requires every acceptance ID and independent review bound to the integrated source. It does not infer semantic correctness from record consistency or enforce the host's entire filesystem.
+
+## Review and runtime evidence
+
+All **15 helper tests passed** locally on macOS; package and whitespace validation passed. Independent adversarial review approved helper SHA-256 `e25a21e501baa33df935c1aed5a92e1611463df6af6024ff73463f480295913f` after fixing stale central shared-source checks, exact serialized context limits, contributor identity aliases, omitted shared-read decisions, and premature release of live partial-result ownership. Review separately exercised requirement changes, partial recovery, concurrent updates, scopes and orphaned locks.
+
+Default status excludes full per-assignment baseline inventories. A 202-file regression demonstrates over 90% smaller output while preserving assignment contracts; canonical inventories still protect validation. Context budgets retain mandatory requirements and fail explicitly when they cannot fit.
+
+Reproduce from this repository:
+
+```sh
+python3 -m unittest discover -s tests/team -p 'test_*.py' -v
+python3 tests/validate_package.py
+git diff --check
+```
+
+The installed package includes the helper, templates, and [complete helper reference](../../skills/sdlc-flow/references/team-helper.md). The source repository is unnecessary for routine use. GitHub Actions adds Python 3.9 checks on Linux, macOS, Windows and a disposable normal skill-install smoke. At publication, only macOS execution is observed; CI results must be checked before extending that claim.
+
+Python 3.9 or newer is required only for helper automation. The manual file protocol remains usable through host file tools. POSIX and Windows use platform standard-library locking; runtime evidence must state which platforms were actually exercised.

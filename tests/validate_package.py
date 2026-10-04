@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import ast
 import hashlib
 import json
 import re
@@ -187,6 +188,23 @@ def validate_sources(skill_dir: Path, checks: Checks) -> None:
             checks.errors.append(f"unlisted vendored file: {path.relative_to(skill_dir)}")
 
 
+def validate_team_resources(skill_dir: Path, checks: Checks) -> None:
+    for relative in ("references/orchestrate.md", "references/shared-memory.md", "references/host-adapters.md",
+                     "assets/assignment.json", "assets/worker-result.json", "scripts/team.py"):
+        path = skill_dir / relative
+        checks.require(path.is_file() and not path.is_symlink(), f"missing regular team resource: {relative}")
+        if not path.is_file():
+            continue
+        try:
+            if path.suffix == ".json":
+                value = json.loads(path.read_text(encoding="utf-8"))
+                checks.require(isinstance(value, dict), f"{relative}: contract must be a JSON object")
+            elif path.suffix == ".py":
+                ast.parse(path.read_text(encoding="utf-8"), filename=relative)
+        except (SyntaxError, ValueError, UnicodeError) as exc:
+            checks.errors.append(f"{relative}: {exc}")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--skill-dir", type=Path, default=None, help="validate an installed skill copy")
@@ -213,6 +231,7 @@ def main() -> int:
         runtime_markdown = [path for path in skill_dir.rglob("*.md") if "vendor" not in path.relative_to(skill_dir).parts]
         validate_links(skill_dir, runtime_markdown, checks, files_only=True)
         validate_sources(skill_dir, checks)
+        validate_team_resources(skill_dir, checks)
     if checks.errors:
         for error in checks.errors:
             print(f"ERROR: {error}", file=sys.stderr)

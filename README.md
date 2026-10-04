@@ -26,7 +26,7 @@ For a project-only install, run the command in the project without `-g`. To insp
 npx skills add naeljeff/sdlc-flow --list
 ```
 
-The installer is needed only to copy the package. After installation, the skill has no network or package-manager dependency of its own. The project being developed may, of course, have its own dependencies. You can also copy the entire `skills/sdlc-flow` directory into an agent's supported skills directory.
+The installer is needed only to copy the package. After installation, the skill has no network or package-manager dependency of its own. Optional Team record automation uses an available Python 3.9+ interpreter and standard library; the host-file protocol remains available without it. The project being developed may, of course, have its own dependencies. You can also copy the entire `skills/sdlc-flow` directory into an agent's supported skills directory.
 
 ## Use
 

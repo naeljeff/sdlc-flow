@@ -1,0 +1,21 @@
+{
+  "id": "feature-a",
+  "agent": "worker-a",
+  "role": "writer",
+  "workspace": "/absolute/isolated/workspace",
+  "outcome": "Deliver one runnable end-to-end feature slice.",
+  "acceptance_ids": ["A1"],
+  "owned_paths": ["src/feature-a", "tests/feature-a"],
+  "dependencies": [],
+  "shared_reads": ["src/contracts"],
+  "checks": ["Run the outcome check for A1."],
+  "next_action": "Implement the slice and return a source manifest with check observations.",
+  "metadata": {
+    "requested_model": "unknown",
+    "reported_model": "unknown",
+    "effort": "unknown",
+    "backend": "unknown",
+    "agent_id": "unknown",
+    "usage": "unknown"
+  }
+}

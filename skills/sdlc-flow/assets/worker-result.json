@@ -1,0 +1,43 @@
+{
+  "task_id": "copy-from-context",
+  "assignment_id": "feature-a",
+  "agent": "worker-a",
+  "generation": 1,
+  "spec_revision": 1,
+  "snapshot": "copy-from-context",
+  "status": "partial",
+  "manifest": [
+    {
+      "path": "src/feature-a/index.py",
+      "sha256": "sha256-of-current-bytes-or-null-for-deletion",
+      "executable": false
+    }
+  ],
+  "checks": [
+    {
+      "command": "python3 -m unittest tests.feature_a",
+      "result": "passed",
+      "checked_files": [
+        {
+          "path": "src/feature-a/index.py",
+          "sha256": "sha256-of-checked-bytes"
+        }
+      ],
+      "evidence": "evidence/worker-a/check.txt"
+    }
+  ],
+  "proposed_facts": [],
+  "findings": [],
+  "limitations": [
+    "Combined acceptance and independent review still require the integration workspace."
+  ],
+  "next_action": "Integrate the slice and run combined outcome checks.",
+  "metadata": {
+    "requested_model": "unknown",
+    "reported_model": "unknown",
+    "effort": "unknown",
+    "backend": "unknown",
+    "agent_id": "unknown",
+    "usage": "unknown"
+  }
+}
