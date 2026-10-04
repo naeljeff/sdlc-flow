@@ -346,6 +346,40 @@ class TeamTests(unittest.TestCase):
         self.cli('transition', '--assignment', 'a', '--to', 'ready')
         self.assertEqual(self.state()['assignments']['a']['generation'], 2)
 
+    def test_terminal_observation_can_be_checkpointed_before_result_ingestion(self):
+        workspace = self.add(shared_reads=['src/b.py'])
+        self.running()
+        context = self.cli('context', '--assignment', 'a', '--max-chars', 10000)
+        destination = Path(context['result_destination'])
+        (workspace / 'src/a.py').write_text('a = 2\n')
+        value = self.result()
+        value['metadata'] = team.metadata({})
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_text(json.dumps(value, sort_keys=True, indent=2) + '\n')
+
+        # Ending observation is bookkeeping, not a new dispatch; it must not
+        # require stale shared reads to pass dispatch checks again.
+        (self.repo / 'src/b.py').write_text('b = 2\n')
+        ended = self.write('ended.json', {'worker_ended': True, 'agent': 'worker-a', 'generation': 1,
+                                          'native_task_id': 'host-worker-a', 'native_status': 'completed'})
+        self.cli('transition', '--assignment', 'a', '--to', 'running', '--evidence', ended)
+        row = self.state()['assignments']['a']
+        self.assertEqual(row['state'], 'running')
+        self.assertFalse(row['live'])
+        self.assertEqual(row['results'], [])
+        self.cli('checkpoint')
+        (self.repo / 'src/b.py').write_text('b = 1\n')
+
+        # A later helper invocation can ingest the same durable artifact.
+        ingest = self.command('ingest', '--input', destination)
+        ingest.remove('--worker-ended')
+        process = subprocess.run(ingest, text=True, capture_output=True)
+        self.assertEqual(process.returncode, 0, process.stderr)
+        row = self.state()['assignments']['a']
+        self.assertEqual(row['state'], 'review')
+        self.assertFalse(row['live'])
+        self.assertEqual(row['results'], ['inbox/worker-a/a-g1.json'])
+
     def test_concurrent_results_preserve_both_workers_and_immutable_hash(self):
         wa = self.add()
         wb = self.add('b', 'src/b.py')

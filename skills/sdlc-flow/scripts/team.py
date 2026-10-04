@@ -483,7 +483,7 @@ def run(args):
             row['result_hashes'][artifact] = digest(path)
             row['state'] = 'review' if value['status'] in {'complete', 'partial'} else 'blocked'
             row['next_action'] = value['next_action']
-            row['live'] = not args.worker_ended
+            row['live'] = row.get('live', False) and not args.worker_ended
         elif cmd == 'memory':
             value = read_json(args.input)
             require(isinstance(value, list), 'memory input must be a fact list')
@@ -529,10 +529,11 @@ def run(args):
                 require(ended.get('worker_ended') is True and ended.get('agent') == row['agent'] and
                         ended.get('generation') == row['generation'], 'worker termination observation required')
                 row['live'] = False
+            same_state_terminal = ending and args.to == row['state']
             require(args.to in EDGES[row['state']] or (row['state'] == args.to and ending),
                     'invalid transition; worker completion is not verification')
             require(not row.get('live') or args.to in {'obsolete', 'blocked', 'integrated'}, 'live worker must end before reassignment')
-            if args.to in {'ready', 'running', 'integrated'}:
+            if args.to in {'ready', 'running', 'integrated'} and not same_state_terminal:
                 require(row['spec_revision'] == state['spec_revision'], 'obsolete assignment')
                 require(deps_ready(state, row), 'dependencies not integrated')
             if args.to == 'ready' and row['state'] in {'blocked', 'review', 'integrated', 'verified'}:
@@ -547,7 +548,7 @@ def run(args):
                             'resumed integrated workspace must match current integration source')
                     row['baseline'] = baseline
                     row['snapshot'] = identity(baseline)
-            if args.to == 'running':
+            if args.to == 'running' and not same_state_terminal:
                 workspace_files = sources(Path(row['workspace']), task)
                 shared_current(state, task, row, workspace_files)
                 for dep in row['dependencies']:
@@ -583,7 +584,7 @@ def run(args):
                             entry['executable'] == (integrated[p]['executable'] if p in integrated else None),
                             'integrated source does not match result')
             row['state'] = args.to
-            if args.to == 'running':
+            if args.to == 'running' and not same_state_terminal:
                 row['live'] = True
             state['gate'] = None
             atomic(under(task, 'assignments/' + row['id'] + '.json'), row)

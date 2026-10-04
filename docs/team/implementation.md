@@ -1,13 +1,13 @@
 # Team orchestration implementation ledger
 
-This work implements the approved parallel-delivery proposal in phases. Baseline: `cbf362f` / SDLC Flow 0.2.0. Candidate version: `0.3.0-team.1`. The earlier precedence experiment and benchmark evidence remain separate. Phase completion records describe actual evidence rather than planned capabilities.
+This work implements the approved parallel-delivery proposal in phases. Baseline: `cbf362f` / SDLC Flow 0.2.0. Candidate version: `0.3.0-team.3`. The earlier precedence experiment and benchmark evidence remain separate. Phase completion records describe actual evidence rather than planned capabilities.
 
 | Phase | Scope | Status | Evidence |
 | --- | --- | --- | --- |
 | 1 | Team workflow, ownership, shared memory, native model capability contract | Complete | Package validation, whitespace check, independent review with both blockers fixed; see [phase 1](phase-1.md) |
 | 2 | Optional stdlib state helper, contracts, freshness, contextual handoffs | Complete | 15 macOS tests, independent adversarial review, package validation; see [phase 2](phase-2.md) |
 | 3 | Native heterogeneous routes and capability probes | Complete with host limits | Codex causal heterogeneous overlap verified; initial Claude headless profile blocked; 19 local tests and independent runner review; see [phase 3](phase-3.md) |
-| 4 | Integration and long-session recovery | Pending | Integrated outcome and fresh-session evidence required |
+| 4 | Integration and long-session recovery | Implementation updated; end-to-end recovery not demonstrated | v2.5.1 stopped at phase 0 (`COMPLETED_PENDING=false`); canonical worker state remained live with unindexed results. Fixed same-state terminal transition behavior and documented ingest-before-reset; no new trajectory run yet; see [phase 4](phase-4.md) |
 | 5 | Matched evaluation, clean install, local package update | Pending | Pilot validity precedes scored attempts; claims depend on results |
 
 ## Publication policy
