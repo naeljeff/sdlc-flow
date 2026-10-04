@@ -16,6 +16,9 @@ jobs:
           python-version: '3.9'
       - run: python tests/validate_package.py
       - run: python -m unittest discover -s tests/team -p "test_*.py" -v
+      - name: Check evaluation mechanics (POSIX runner)
+        if: runner.os != 'Windows'
+        run: python tests/team/evaluate.py selftest
   install:
     runs-on: ubuntu-latest
     steps:

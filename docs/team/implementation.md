@@ -6,7 +6,7 @@ This work implements the approved parallel-delivery proposal in phases. Baseline
 | --- | --- | --- | --- |
 | 1 | Team workflow, ownership, shared memory, native model capability contract | Complete | Package validation, whitespace check, independent review with both blockers fixed; see [phase 1](phase-1.md) |
 | 2 | Optional stdlib state helper, contracts, freshness, contextual handoffs | Complete | 15 macOS tests, independent adversarial review, package validation; see [phase 2](phase-2.md) |
-| 3 | Native heterogeneous routes and capability probes | Pending | Live evidence required; CLI presence alone is insufficient |
+| 3 | Native heterogeneous routes and capability probes | Complete with host limits | Codex causal heterogeneous overlap verified; initial Claude headless profile blocked; 19 local tests and independent runner review; see [phase 3](phase-3.md) |
 | 4 | Integration and long-session recovery | Pending | Integrated outcome and fresh-session evidence required |
 | 5 | Matched evaluation, clean install, local package update | Pending | Pilot validity precedes scored attempts; claims depend on results |
 
