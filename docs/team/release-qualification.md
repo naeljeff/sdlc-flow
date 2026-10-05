@@ -33,9 +33,9 @@ checks do not establish their behavioral outcomes.
 | Gate | Required evidence | Current status |
 | --- | --- | --- |
 | Package and helper | Self-contained install; meaningful lifecycle, scope, freshness and artifact checks; independent review | team.4: 23 tests, independent review, clean install and Ubuntu/macOS/Windows CI passed |
-| Fresh-session recovery | Frozen initial session plus ten fresh sessions, requirements changes, interruption, stale gate rejection, dirty preservation, live-worker ownership and final integrated review | team.4 v2.6 passed phases 0–4, then stopped on redirected stderr; v2.7 stopped at phase 0 on stdout-wrapper observation; both independently classified; v2.8 independently preflighted: phases 0–3 passed; phases 4–10 pending |
-| Current matched pilot | Same source, requirements, model policy and independent outcome review for current candidate and baseline | Twelve-run original plan; first candidate independently accepted after an evidence-gap reassessment; four native and one adapted run pass automated checks; two TinyDB candidate snapshots fully accepted; remaining fresh reviews/runs in progress |
-| Devflow comparison | Actual controller and native routes, isolated task/configuration, same product acceptance; no existing solution supplied | Default controller context bound blocked implementation; a separate operationally adapted four-run cohort has passed independent preflight; no completed comparative result |
+| Fresh-session recovery | Frozen initial session plus ten fresh sessions, requirements changes, interruption, stale gate rejection, dirty preservation, live-worker ownership and final integrated review | team.4 v2.6 passed phases 0–4, then stopped on redirected stderr; v2.7 stopped at phase 0 on stdout-wrapper observation; both independently classified; v2.8 independently preflighted: phases 0–4 passed; phases 5–10 pending |
+| Current matched pilot | Same source, requirements, model policy and independent outcome review for current candidate and baseline | Eight native runs planned; seven pass automated product checks and the eighth is running. Both candidate TinyDB snapshots pass independent product and conformance review; dotenv assessments remain in progress |
+| Devflow comparison | Actual controller and native routes, isolated task/configuration, same product acceptance; no existing solution supplied | Default context bound blocked implementation. Separate adapted cohort: one READY_FOR_USER, one unimplemented retry block, two implemented phase-guard failures; all three patches pass independent product criteria |
 | Broader task coverage | New source-bound software tasks with observable public outcomes and independently checked graders | Two new TypeScript/Go holdouts; corrected graders and twelve controls independently approved; actual native execution driver and reviewer entrypoint independently approved; two fresh candidate-only runs queued |
 | Workflow accounting | Retained failed attempts, root/worker/reviewer coverage, observed timing and usage without duplicate totals | Full workflow metrics remain unknown; no speed/token/cost superiority claim |
 | Host support | Real coding workflow on each advertised host, with actual permissions and route observations | Codex native routing observed; Claude evidence limited to scoped probe |
@@ -223,6 +223,26 @@ then stopped with the official error `review requires REVIEWING phase` while
 state reported VERIFYING. Processes were cleaned up, and all native attempts and
 repairs were retained. The first patch also passed independent D1–D5 product
 assessment; the second patch also passed independent product assessment. Controller completion remains
-unsuccessful regardless of an independent product pass. The first candidate native dotenv workflow passed its automated checks and is
-under independent assessment; the other three native dotenv workflows and two
-broader holdouts are in progress or queued. No completed ranking or production release is claimed yet.
+unsuccessful regardless of an independent product pass. Both standalone dev dotenv workflows and the first candidate dotenv workflow
+passed automated checks. The final candidate workflow is running; independent
+dotenv assessments and two broader holdouts remain in progress or queued. No completed ranking or production release is claimed yet.
+
+## Phase 4 and collector follow-up
+
+Fresh recovery v2.8 passed changed-requirement phase 4 in 1,569.8 seconds.
+The new requirement revision obsoleted prior assignments; Status was integrated
+under the current revision and the combined candidate received fresh independent
+review. Dirty preservation, current gate, isolation, persistence and status
+criteria passed. Phase 5 is running; phases 6–10 remain unexecuted.
+
+The first candidate dotenv patch passed all independent product criteria, but
+its route assessment could not see task-local JSON assignment contracts.
+Independent inspection established that the collector only joined one assignment
+identity field and Markdown packet paths. Actual task-linked JSON contracts and
+native packet reads were present in the frozen evidence. The original negative
+assessment remains unchanged. A corrected private collector extracts only
+source-bound contract fields, with 55 controls and independent exact approval.
+The outcome template and criteria are unchanged; other completed row inputs
+were independently verified unchanged. A fresh assessment of the affected
+snapshot is running. This is a measurement correction, not another solver attempt
+or a package behavior change.
