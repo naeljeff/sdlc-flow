@@ -33,9 +33,9 @@ checks do not establish their behavioral outcomes.
 | Gate | Required evidence | Current status |
 | --- | --- | --- |
 | Package and helper | Self-contained install; meaningful lifecycle, scope, freshness and artifact checks; independent review | team.4: 23 tests, independent review, clean install and Ubuntu/macOS/Windows CI passed |
-| Fresh-session recovery | Frozen initial session plus ten fresh sessions, requirements changes, interruption, stale gate rejection, dirty preservation, live-worker ownership and final integrated review | team.4 exact preflight approved; first four stages passed, including actual process interruption; remaining stages running |
-| Current matched pilot | Same source, requirements, model policy and independent outcome review for current candidate and baseline | Approved twelve-run study: two pinned library tasks, three arms, two repetitions; first candidate running |
-| Devflow comparison | Actual controller and native routes, isolated task/configuration, same product acceptance; no existing solution supplied | Actual isolated controller capability proof passed; product comparison running; no comparative result yet |
+| Fresh-session recovery | Frozen initial session plus ten fresh sessions, requirements changes, interruption, stale gate rejection, dirty preservation, live-worker ownership and final integrated review | team.4 assessment v2.6 stopped: phases 0–4 passed, phase 5 stale-rejection observation failed; independent classification pending; phases 6–10 unlaunched |
+| Current matched pilot | Same source, requirements, model policy and independent outcome review for current candidate and baseline | Twelve-run original plan; first candidate independently accepted after an evaluator evidence-gap reassessment; remaining native runs/reviews in progress |
+| Devflow comparison | Actual controller and native routes, isolated task/configuration, same product acceptance; no existing solution supplied | Default controller context bound blocked implementation; a separate operationally adapted cohort is in preflight; no completed comparative result |
 | Broader task coverage | New source-bound software tasks with observable public outcomes and independently checked graders | Two new TypeScript/Go holdouts; corrected graders and twelve controls independently approved; execution preflight pending |
 | Workflow accounting | Retained failed attempts, root/worker/reviewer coverage, observed timing and usage without duplicate totals | Full workflow metrics remain unknown; no speed/token/cost superiority claim |
 | Host support | Real coding workflow on each advertised host, with actual permissions and route observations | Codex native routing observed; Claude evidence limited to scoped probe |
@@ -74,13 +74,14 @@ adding runtime dependencies to the installed skill.
 
 ## Current position
 
-The first four recovery stages passed. The new root
+The first five recovery stages passed. The new root
 recovered the completed canonical inbox results without replacing the original
 Records/Store workers, integrated the dependent writer, and obtained independent
 review. Current acceptance, evidence freshness, isolation and the preserved
 dirty note passed at that boundary. An intentional failed command was diagnosed
 from the native exit status, and the supervisor then interrupted a real root
-process after its durable checkpoint marker. This is four stages of eleven, not full
+process after its durable checkpoint marker. Changed-requirement recovery also
+passed. This is five stages of eleven, not full
 long-session qualification or native context compaction evidence.
 
 The current matched study uses the same root/reviewer Sol-high and implementation
@@ -90,8 +91,12 @@ Devflow runtime and policy are isolated privately, with a real three-role native
 capability proof before launch. Fourteen task controls and independent exact-hash
 preflight passed. This protocol has twelve product runs; it has no completed
 comparative outcome yet and does not measure general superiority. The first
-candidate run passed its four deterministic product checks; it remains pending
-independent outcome review. Reviewer packet preflight caught raw tool arguments
+candidate run passed its deterministic product checks. Its first independent
+assessment was negative because the reduced packet could not establish worker
+ownership; that result is retained. After independently audited provenance
+collection and study binding, a fresh assessment accepted the same frozen source.
+This is an evaluator reassessment, not first-assessment success or another solver
+attempt. Reviewer packet preflight caught raw tool arguments
 and insufficient same-run snapshot binding before any judge launch. The approved
 packet builder now supplies only the public brief, current final source and
 structured route/scope observations bound to that run's receipts.
@@ -110,5 +115,27 @@ of the public evaluator API exceeded the initial narrow read instruction; this
 was disclosed, with no evidence that private historical solutions or candidate
 outcomes entered the authored tasks.
 
-Continue the unchanged recovery trajectory and matched study. Do not tag a
-stable release while the critical recovery gate remains unproven.
+## Current stop and operational adaptations
+
+Recovery v2.6 stopped automatically at phase 5: Priority, Status and dirty
+preservation passed, but `STALE_REJECTED` did not. The native protected-helper
+command exited 2 and saved its error text through redirection. The evaluator
+expected that text in the raw tool output, which was empty. The original failed
+receipt and report remain unchanged; independent classification must establish
+whether the saved evidence proves the requested rejection before an observer
+repair or new attempt is authorized. Phases 6–10 have not launched. Full recovery
+is still a release blocker.
+
+The default Devflow controller stopped before implementation when a required
+16,926-character context packet exceeded its unchanged installed 16,000-character
+bound. A second repetition was paused after architecture started, with cleanup
+and all attempts retained. These are controller capability/interruption results,
+not completed-patch accuracy measurements. Further known-blocked default runs
+are deferred. A supplemental four-run Devflow cohort is being frozen with only
+the private context bound raised to 1,000,000 characters, leaving these fixed
+tasks unbounded by that guard. It retains the source, requirements, models,
+effort and controller, and starts from fresh contexts/source without the paused
+plan. Its approval and outcomes must be reported separately from the original
+study. No global Devflow installation or policy is changed.
+
+Do not tag a stable release while the critical recovery gate remains unproven.
