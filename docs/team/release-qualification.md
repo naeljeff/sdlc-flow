@@ -33,10 +33,10 @@ checks do not establish their behavioral outcomes.
 | Gate | Required evidence | Current status |
 | --- | --- | --- |
 | Package and helper | Self-contained install; meaningful lifecycle, scope, freshness and artifact checks; independent review | team.4: 23 tests, independent review, clean install and Ubuntu/macOS/Windows CI passed |
-| Fresh-session recovery | Frozen initial session plus ten fresh sessions, requirements changes, interruption, stale gate rejection, dirty preservation, live-worker ownership and final integrated review | New team.4 assessment frozen; independent exact-hash review pending |
-| Current matched pilot | Same source, requirements, model policy and independent outcome review for current candidate and baseline | team.4 versus `dev` frozen; 14 controls passed; independent preflight pending |
-| Devflow comparison | Actual controller and native routes, isolated task/configuration, same product acceptance; no existing solution supplied | Capability and isolation assessment underway; no current comparative result |
-| Broader task coverage | New source-bound software tasks with observable public outcomes and independently checked graders | Not yet qualified beyond bounded Python library pilot |
+| Fresh-session recovery | Frozen initial session plus ten fresh sessions, requirements changes, interruption, stale gate rejection, dirty preservation, live-worker ownership and final integrated review | team.4 exact preflight approved; initial session and first fresh restart passed; remaining stages running |
+| Current matched pilot | Same source, requirements, model policy and independent outcome review for current candidate and baseline | Approved twelve-run study: two pinned library tasks, three arms, two repetitions; first candidate running |
+| Devflow comparison | Actual controller and native routes, isolated task/configuration, same product acceptance; no existing solution supplied | Actual isolated controller capability proof passed; product comparison running; no comparative result yet |
+| Broader task coverage | New source-bound software tasks with observable public outcomes and independently checked graders | Two new TypeScript/Go holdouts authored; nine mechanical control rows passed; independent preflight pending |
 | Workflow accounting | Retained failed attempts, root/worker/reviewer coverage, observed timing and usage without duplicate totals | Full workflow metrics remain unknown; no speed/token/cost superiority claim |
 | Host support | Real coding workflow on each advertised host, with actual permissions and route observations | Codex native routing observed; Claude evidence limited to scoped probe |
 | Stable publication | Current critical gates, exact version/tag, clean install, documented limitations and reversible local update | Not yet eligible |
@@ -74,7 +74,26 @@ adding runtime dependencies to the installed skill.
 
 ## Current position
 
-Independently audit the frozen recovery assessment with team.4, then run
-the unchanged behavioral trajectory. Prepare the matched pilot and Devflow
-capability checks in parallel. Do not tag a stable release while the critical
-recovery gate remains unproven.
+The initial recovery checkpoint and first fresh restart passed. The new root
+recovered the completed canonical inbox results without replacing the original
+Records/Store workers, integrated the dependent writer, and obtained independent
+review. Current acceptance, evidence freshness, isolation and the preserved
+dirty note passed at that boundary. This is two stages of eleven, not full
+long-session qualification or native context compaction evidence.
+
+The current matched study uses the same root/reviewer Sol-high and implementation
+Astra-high profile across SDLC Flow, standalone `dev`, and the actual Devflow
+controller. Capacity is three for every arm; actual scheduling may differ. The
+Devflow runtime and policy are isolated privately, with a real three-role native
+capability proof before launch. Fourteen task controls and independent exact-hash
+preflight passed. This protocol has twelve product runs; it has no completed
+comparative outcome yet and does not measure general superiority.
+
+The additional holdouts cover reentrant Zustand state subscriptions and HTTP
+`Vary` header composition in Go CORS middleware at pinned upstream revisions.
+Their baseline/positive/targeted-negative controls passed before any model
+subject launch. Independent preflight is pending. The TypeScript probe is not
+browser or visual UI evidence.
+
+Continue the unchanged recovery trajectory and matched study. Do not tag a
+stable release while the critical recovery gate remains unproven.
