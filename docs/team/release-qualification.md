@@ -33,10 +33,10 @@ checks do not establish their behavioral outcomes.
 | Gate | Required evidence | Current status |
 | --- | --- | --- |
 | Package and helper | Self-contained install; meaningful lifecycle, scope, freshness and artifact checks; independent review | team.4: 23 tests, independent review, clean install and Ubuntu/macOS/Windows CI passed |
-| Fresh-session recovery | Frozen initial session plus ten fresh sessions, requirements changes, interruption, stale gate rejection, dirty preservation, live-worker ownership and final integrated review | team.4 exact preflight approved; initial session and first fresh restart passed; remaining stages running |
+| Fresh-session recovery | Frozen initial session plus ten fresh sessions, requirements changes, interruption, stale gate rejection, dirty preservation, live-worker ownership and final integrated review | team.4 exact preflight approved; first four stages passed, including actual process interruption; remaining stages running |
 | Current matched pilot | Same source, requirements, model policy and independent outcome review for current candidate and baseline | Approved twelve-run study: two pinned library tasks, three arms, two repetitions; first candidate running |
 | Devflow comparison | Actual controller and native routes, isolated task/configuration, same product acceptance; no existing solution supplied | Actual isolated controller capability proof passed; product comparison running; no comparative result yet |
-| Broader task coverage | New source-bound software tasks with observable public outcomes and independently checked graders | Two new TypeScript/Go holdouts authored; nine mechanical control rows passed; independent preflight pending |
+| Broader task coverage | New source-bound software tasks with observable public outcomes and independently checked graders | Two new TypeScript/Go holdouts; corrected graders and twelve controls independently approved; execution preflight pending |
 | Workflow accounting | Retained failed attempts, root/worker/reviewer coverage, observed timing and usage without duplicate totals | Full workflow metrics remain unknown; no speed/token/cost superiority claim |
 | Host support | Real coding workflow on each advertised host, with actual permissions and route observations | Codex native routing observed; Claude evidence limited to scoped probe |
 | Stable publication | Current critical gates, exact version/tag, clean install, documented limitations and reversible local update | Not yet eligible |
@@ -74,11 +74,13 @@ adding runtime dependencies to the installed skill.
 
 ## Current position
 
-The initial recovery checkpoint and first fresh restart passed. The new root
+The first four recovery stages passed. The new root
 recovered the completed canonical inbox results without replacing the original
 Records/Store workers, integrated the dependent writer, and obtained independent
 review. Current acceptance, evidence freshness, isolation and the preserved
-dirty note passed at that boundary. This is two stages of eleven, not full
+dirty note passed at that boundary. An intentional failed command was diagnosed
+from the native exit status, and the supervisor then interrupted a real root
+process after its durable checkpoint marker. This is four stages of eleven, not full
 long-session qualification or native context compaction evidence.
 
 The current matched study uses the same root/reviewer Sol-high and implementation
@@ -87,13 +89,26 @@ controller. Capacity is three for every arm; actual scheduling may differ. The
 Devflow runtime and policy are isolated privately, with a real three-role native
 capability proof before launch. Fourteen task controls and independent exact-hash
 preflight passed. This protocol has twelve product runs; it has no completed
-comparative outcome yet and does not measure general superiority.
+comparative outcome yet and does not measure general superiority. The first
+candidate run passed its four deterministic product checks; it remains pending
+independent outcome review. Reviewer packet preflight caught raw tool arguments
+and insufficient same-run snapshot binding before any judge launch. The approved
+packet builder now supplies only the public brief, current final source and
+structured route/scope observations bound to that run's receipts.
 
 The additional holdouts cover reentrant Zustand state subscriptions and HTTP
 `Vary` header composition in Go CORS middleware at pinned upstream revisions.
-Their baseline/positive/targeted-negative controls passed before any model
-subject launch. Independent preflight is pending. The TypeScript probe is not
-browser or visual UI evidence.
+Initial holdout grader inspection found two false-positive risks: default
+equality could masquerade as configured equality, and a header union could alter
+first-occurrence spelling/order or retain empty directives. The revised probes
+and targeted mutations now reject those cases. Twelve baseline, positive and
+negative controls passed independent replay; the original public requirements,
+source snapshots and acceptance IDs remain unchanged. Execution manifest and
+native runner preflight are still pending; no holdout subject has launched. The
+TypeScript probe is not browser or visual UI evidence. The author's broader read
+of the public evaluator API exceeded the initial narrow read instruction; this
+was disclosed, with no evidence that private historical solutions or candidate
+outcomes entered the authored tasks.
 
 Continue the unchanged recovery trajectory and matched study. Do not tag a
 stable release while the critical recovery gate remains unproven.
