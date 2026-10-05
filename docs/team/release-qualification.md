@@ -33,8 +33,8 @@ checks do not establish their behavioral outcomes.
 | Gate | Required evidence | Current status |
 | --- | --- | --- |
 | Package and helper | Self-contained install; meaningful lifecycle, scope, freshness and artifact checks; independent review | team.4: 23 tests, independent review, clean install and Ubuntu/macOS/Windows CI passed |
-| Fresh-session recovery | Frozen initial session plus ten fresh sessions, requirements changes, interruption, stale gate rejection, dirty preservation, live-worker ownership and final integrated review | team.4 v2.6 passed phases 0–4, then stopped on redirected stderr; v2.7 stopped at phase 0 on stdout-wrapper observation; both independently classified; v2.8 independently preflighted and fresh full execution authorized |
-| Current matched pilot | Same source, requirements, model policy and independent outcome review for current candidate and baseline | Twelve-run original plan; first candidate independently accepted after an evidence-gap reassessment; four native and one adapted run pass automated checks; current fresh reviews authorized |
+| Fresh-session recovery | Frozen initial session plus ten fresh sessions, requirements changes, interruption, stale gate rejection, dirty preservation, live-worker ownership and final integrated review | team.4 v2.6 passed phases 0–4, then stopped on redirected stderr; v2.7 stopped at phase 0 on stdout-wrapper observation; both independently classified; v2.8 independently preflighted: phases 0–1 passed; phases 2–10 pending |
+| Current matched pilot | Same source, requirements, model policy and independent outcome review for current candidate and baseline | Twelve-run original plan; first candidate independently accepted after an evidence-gap reassessment; four native and one adapted run pass automated checks; two TinyDB candidate snapshots fully accepted; remaining fresh reviews/runs in progress |
 | Devflow comparison | Actual controller and native routes, isolated task/configuration, same product acceptance; no existing solution supplied | Default controller context bound blocked implementation; a separate operationally adapted four-run cohort has passed independent preflight; no completed comparative result |
 | Broader task coverage | New source-bound software tasks with observable public outcomes and independently checked graders | Two new TypeScript/Go holdouts; corrected graders and twelve controls independently approved; actual native execution driver and reviewer entrypoint independently approved; two fresh candidate-only runs queued |
 | Workflow accounting | Retained failed attempts, root/worker/reviewer coverage, observed timing and usage without duplicate totals | Full workflow metrics remain unknown; no speed/token/cost superiority claim |
@@ -196,3 +196,30 @@ progress trigger the same official pause and cleanup. This is a disclosed stop
 for a known endless operational loop, not a token ceiling or a rescued solver.
 The next adapted task progressed to implementation after its second architecture
 attempt without changes to source, prompts, models or controller policy.
+
+## Current native progress
+
+Fresh recovery v2.8 passed phase 0 in 612.3 seconds and phase 1 in 1,550.8
+seconds. The latter recovered the original completed worker results without
+replacement, integrated the dependent CLI and obtained independent review;
+current acceptance, dirty preservation, fresh gate, isolation, persistence and
+validation all passed. Later stages remain unproven until their receipts pass.
+This is controlled fresh-session recovery, not native compaction evidence.
+
+Both candidate TinyDB snapshots passed the common final outcome template:
+T1–T5 and ROUTE were accepted. Both completed `dev` snapshots passed every product
+criterion, with route conformance unestablished because declared ownership and
+reviewer acceptance/source scope were not fully evidenced. The first adapted
+Devflow TinyDB snapshot also passed every product criterion; its controller
+completed, while source-bound per-session assignment/mutation evidence remained
+incomplete. Some judge findings also questioned the normalized evidence format;
+that uncertainty is retained rather than treated as a code defect.
+
+Both adapted Devflow dotenv runs produced patches passing automated D1–D4,
+then stopped with the official error `review requires REVIEWING phase` while
+state reported VERIFYING. Processes were cleaned up, and all native attempts and
+repairs were retained. The first patch also passed independent D1–D5 product
+assessment; the second assessment is pending. Controller completion remains
+unsuccessful regardless of an independent product pass. The four remaining
+native dotenv workflows and the two broader holdouts are still in progress or
+queued. No completed ranking or production release is claimed yet.
