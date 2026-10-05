@@ -33,8 +33,8 @@ checks do not establish their behavioral outcomes.
 | Gate | Required evidence | Current status |
 | --- | --- | --- |
 | Package and helper | Self-contained install; meaningful lifecycle, scope, freshness and artifact checks; independent review | team.4: 23 tests, independent review, clean install and Ubuntu/macOS/Windows CI passed |
-| Fresh-session recovery | Frozen initial session plus ten fresh sessions, requirements changes, interruption, stale gate rejection, dirty preservation, live-worker ownership and final integrated review | team.4 assessment v2.6 stopped: phases 0–4 passed; phase 5 observer false negative independently established; fresh full v2.7 recovery independently preflighted and authorized |
-| Current matched pilot | Same source, requirements, model policy and independent outcome review for current candidate and baseline | Twelve-run original plan; first candidate independently accepted after an evaluator evidence-gap reassessment; remaining native runs/reviews in progress |
+| Fresh-session recovery | Frozen initial session plus ten fresh sessions, requirements changes, interruption, stale gate rejection, dirty preservation, live-worker ownership and final integrated review | team.4 v2.6 passed phases 0–4, then stopped on redirected stderr; v2.7 stopped at phase 0 on stdout-wrapper observation; both independently classified; v2.8 preparation pending |
+| Current matched pilot | Same source, requirements, model policy and independent outcome review for current candidate and baseline | Twelve-run original plan; first candidate independently accepted after an evidence-gap reassessment; four native and one adapted run pass automated checks; current fresh reviews authorized |
 | Devflow comparison | Actual controller and native routes, isolated task/configuration, same product acceptance; no existing solution supplied | Default controller context bound blocked implementation; a separate operationally adapted four-run cohort has passed independent preflight; no completed comparative result |
 | Broader task coverage | New source-bound software tasks with observable public outcomes and independently checked graders | Two new TypeScript/Go holdouts; corrected graders and twelve controls independently approved; actual native execution driver and reviewer entrypoint independently approved; two fresh candidate-only runs queued |
 | Workflow accounting | Retained failed attempts, root/worker/reviewer coverage, observed timing and usage without duplicate totals | Full workflow metrics remain unknown; no speed/token/cost superiority claim |
@@ -125,23 +125,51 @@ expected that text in the raw tool output, which was empty. The original failed
 receipt and report remain unchanged. Independent inspection established an
 observer false negative: the source-bound helper rejected the same-task obsolete
 revision, emitted the required marker to redirected stderr, and left the gate
-unaccepted. The private observer is being corrected to capture native-event-bound
-redirected evidence, with targeted positive and negative controls. The new observer retains all 95 earlier predicate outcomes and 14 product
-controls, with 33 additional redirected-output controls. Independent exact
-preflight passed, and a fresh full eleven-stage trajectory is authorized. The
-old phase is not rescored or resumed. Phases 6–10 of v2.6 have not launched. Full recovery remains
-a release blocker.
+unaccepted. The private observer was corrected to capture native-event-bound redirected
+evidence, with targeted positive and negative controls. It retains all 95 earlier
+predicate outcomes and 14 product controls, with 33 additional redirected-output
+controls. Independent exact preflight passed, and a fresh full eleven-stage
+trajectory was authorized. The old phase was not rescored or resumed. Phases
+6–10 of v2.6 have not launched. Full recovery remains a release blocker.
 
 The default Devflow controller stopped before implementation when a required
 16,926-character context packet exceeded its unchanged installed 16,000-character
 bound. A second repetition was paused after architecture started, with cleanup
 and all attempts retained. These are controller capability/interruption results,
 not completed-patch accuracy measurements. Further known-blocked default runs
-are deferred. A supplemental four-run Devflow cohort has passed independent exact preflight with only
-the private context bound raised to 1,000,000 characters, leaving these fixed
+are deferred. A supplemental four-run Devflow cohort passed independent exact preflight with
+only the private context bound raised to 1,000,000 characters, leaving these fixed
 tasks unbounded by that guard. It retains the source, requirements, models,
 effort and controller, and starts from fresh contexts/source without the paused
-plan. Its outcomes must be reported separately from the original study; no adapted
-product run has completed yet. No global Devflow installation or policy is changed.
+plan. Its outcomes must be reported separately from the original study. The
+first adapted run has now finished and passed all automated product checks; independent outcome
+review remains pending. No global Devflow installation or policy is changed.
 
 Do not tag a stable release while the critical recovery gate remains unproven.
+
+## Subsequent observation checks
+
+The independently approved fresh v2.7 trajectory stopped at phase 0 after 584.1
+seconds: startup and dirty preservation passed, but its completed-pending
+observation failed. Both exact native workers terminated, their canonical states
+were recorded as not live, and their correct result files remained un-ingested.
+Independent inspection found the Records worker's native tool output contained
+bytes identical to its canonical result; a transparent `text(r.output)` wrapper
+had omitted the nested exit metadata expected by the observer. The public prompt
+required printing identical JSON, not a separately exposed nested exit status.
+The frozen failed grade remains unchanged. A narrow new observer will recognize
+that source-bound stdout pattern while leaving unobserved exit status unknown;
+positive and negative controls and exact independent preflight are required
+before a new full trajectory. No later v2.7 phase launched.
+
+Independent packet audits also rejected incomplete controller route coverage
+before judging. The new approved collector reconciles complete attempt receipts
+with bounded native root/descendant metadata, checks rooted parent graphs and
+ordered lifecycle intervals, and reports missing evidence as incomplete. Twenty-
+seven controls cover duplicate/conflicting attempts, cyclic/orphan parent edges,
+omitted descendants, missing inventory, reversed timestamps and capacity. Exact
+generic, original-study and supplemental-study bindings passed independent
+inspection. The collector sends the public brief, final source and safe route
+metadata; prior negative assessments remain retained. Native host observations do
+not attest upstream provider identity, dynamic mutation scope or shared-workspace
+byte authorship.
