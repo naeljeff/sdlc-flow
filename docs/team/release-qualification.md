@@ -33,10 +33,10 @@ checks do not establish their behavioral outcomes.
 | Gate | Required evidence | Current status |
 | --- | --- | --- |
 | Package and helper | Self-contained install; meaningful lifecycle, scope, freshness and artifact checks; independent review | team.4: 23 tests, independent review, clean install and Ubuntu/macOS/Windows CI passed |
-| Fresh-session recovery | Frozen initial session plus ten fresh sessions, requirements changes, interruption, stale gate rejection, dirty preservation, live-worker ownership and final integrated review | team.4 assessment v2.6 stopped: phases 0–4 passed; phase 5 observer false negative independently established; fresh full v2.7 recovery preparation in progress |
+| Fresh-session recovery | Frozen initial session plus ten fresh sessions, requirements changes, interruption, stale gate rejection, dirty preservation, live-worker ownership and final integrated review | team.4 assessment v2.6 stopped: phases 0–4 passed; phase 5 observer false negative independently established; fresh full v2.7 recovery independently preflighted and authorized |
 | Current matched pilot | Same source, requirements, model policy and independent outcome review for current candidate and baseline | Twelve-run original plan; first candidate independently accepted after an evaluator evidence-gap reassessment; remaining native runs/reviews in progress |
 | Devflow comparison | Actual controller and native routes, isolated task/configuration, same product acceptance; no existing solution supplied | Default controller context bound blocked implementation; a separate operationally adapted four-run cohort has passed independent preflight; no completed comparative result |
-| Broader task coverage | New source-bound software tasks with observable public outcomes and independently checked graders | Two new TypeScript/Go holdouts; corrected graders and twelve controls independently approved; actual native execution driver prepared; independent exact preflight pending |
+| Broader task coverage | New source-bound software tasks with observable public outcomes and independently checked graders | Two new TypeScript/Go holdouts; corrected graders and twelve controls independently approved; actual native execution driver and reviewer entrypoint independently approved; two fresh candidate-only runs queued |
 | Workflow accounting | Retained failed attempts, root/worker/reviewer coverage, observed timing and usage without duplicate totals | Full workflow metrics remain unknown; no speed/token/cost superiority claim |
 | Host support | Real coding workflow on each advertised host, with actual permissions and route observations | Codex native routing observed; Claude evidence limited to scoped probe |
 | Stable publication | Current critical gates, exact version/tag, clean install, documented limitations and reversible local update | Not yet eligible |
@@ -108,8 +108,9 @@ equality could masquerade as configured equality, and a header union could alter
 first-occurrence spelling/order or retain empty directives. The revised probes
 and targeted mutations now reject those cases. Twelve baseline, positive and
 negative controls passed independent replay; the original public requirements,
-source snapshots and acceptance IDs remain unchanged. Execution manifest and
-native runner preflight are still pending; no holdout subject has launched. The
+source snapshots and acceptance IDs remain unchanged. The execution manifest, native runner and runnable reviewer entrypoint have
+passed independent exact preflight; two fresh candidate-only runs are authorized
+and queued. No holdout subject has launched. The
 TypeScript probe is not browser or visual UI evidence. The author's broader read
 of the public evaluator API exceeded the initial narrow read instruction; this
 was disclosed, with no evidence that private historical solutions or candidate
@@ -125,9 +126,10 @@ receipt and report remain unchanged. Independent inspection established an
 observer false negative: the source-bound helper rejected the same-task obsolete
 revision, emitted the required marker to redirected stderr, and left the gate
 unaccepted. The private observer is being corrected to capture native-event-bound
-redirected evidence, with targeted positive and negative controls. A new full
-eleven-stage trajectory requires a new exact preflight; the old phase is not
-rescored or resumed. Phases 6–10 of v2.6 have not launched. Full recovery remains
+redirected evidence, with targeted positive and negative controls. The new observer retains all 95 earlier predicate outcomes and 14 product
+controls, with 33 additional redirected-output controls. Independent exact
+preflight passed, and a fresh full eleven-stage trajectory is authorized. The
+old phase is not rescored or resumed. Phases 6–10 of v2.6 have not launched. Full recovery remains
 a release blocker.
 
 The default Devflow controller stopped before implementation when a required
