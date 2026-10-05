@@ -33,7 +33,7 @@ checks do not establish their behavioral outcomes.
 | Gate | Required evidence | Current status |
 | --- | --- | --- |
 | Package and helper | Self-contained install; meaningful lifecycle, scope, freshness and artifact checks; independent review | team.4: 23 tests, independent review, clean install and Ubuntu/macOS/Windows CI passed |
-| Fresh-session recovery | Frozen initial session plus ten fresh sessions, requirements changes, interruption, stale gate rejection, dirty preservation, live-worker ownership and final integrated review | team.4 v2.6 passed phases 0–4, then stopped on redirected stderr; v2.7 stopped at phase 0 on stdout-wrapper observation; both independently classified; v2.8 independently preflighted: phases 0–4 passed; phases 5–10 pending |
+| Fresh-session recovery | Frozen initial session plus ten fresh sessions, requirements changes, interruption, stale gate rejection, dirty preservation, live-worker ownership and final integrated review | team.4 v2.6 passed phases 0–4, then stopped on redirected stderr; v2.7 stopped at phase 0 on stdout-wrapper observation; both independently classified; v2.8 passed phases 0–4, then stopped at phase 5 stale-rejection observation; independent classification pending; phases 6–10 unlaunched |
 | Current matched pilot | Same source, requirements, model policy and independent outcome review for current candidate and baseline | Eight native runs planned; seven pass automated product checks and the eighth is running. Both candidate TinyDB snapshots pass independent product and conformance review; dotenv assessments remain in progress |
 | Devflow comparison | Actual controller and native routes, isolated task/configuration, same product acceptance; no existing solution supplied | Default context bound blocked implementation. Separate adapted cohort: one READY_FOR_USER, one unimplemented retry block, two implemented phase-guard failures; all three patches pass independent product criteria |
 | Broader task coverage | New source-bound software tasks with observable public outcomes and independently checked graders | Two new TypeScript/Go holdouts; corrected graders and twelve controls independently approved; actual native execution driver and reviewer entrypoint independently approved; two fresh candidate-only runs queued |
@@ -146,6 +146,8 @@ first adapted run has now finished and passed all automated product checks; inde
 review remains pending. No global Devflow installation or policy is changed.
 
 Do not tag a stable release while the critical recovery gate remains unproven.
+The exact promotion, distribution and rollback steps are tracked in the
+[release procedure](release-procedure.md).
 
 ## Subsequent observation checks
 
@@ -233,7 +235,9 @@ Fresh recovery v2.8 passed changed-requirement phase 4 in 1,569.8 seconds.
 The new requirement revision obsoleted prior assignments; Status was integrated
 under the current revision and the combined candidate received fresh independent
 review. Dirty preservation, current gate, isolation, persistence and status
-criteria passed. Phase 5 is running; phases 6–10 remain unexecuted.
+criteria passed. Phase 5 stopped at stale-rejection observation; Priority, Status and dirty
+preservation passed. Independent classification is pending; phases 6–10 remain
+unexecuted.
 
 The first candidate dotenv patch passed all independent product criteria, but
 its route assessment could not see task-local JSON assignment contracts.
@@ -246,3 +250,13 @@ The outcome template and criteria are unchanged; other completed row inputs
 were independently verified unchanged. A fresh assessment of the affected
 snapshot is running. This is a measurement correction, not another solver attempt
 or a package behavior change.
+
+## Release identity preparation
+
+Release verification now rejects a tag whose version differs from the installed
+package metadata. Three focused identity checks passed, and independent review
+confirmed development/stable mismatch rejection. A clean GitHub skill-tree copy
+install validated the current development version for Codex and Claude Code.
+The distribution smoke test now compares both installed directories with the
+exact checkout package, including remote sources. No stable tag or global update
+has been made; this preparation does not remove the recovery release blocker.

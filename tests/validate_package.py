@@ -17,6 +17,7 @@ SKILL_NAME = "sdlc-flow"
 NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 REVISION_RE = re.compile(r"^[0-9a-f]{40}$")
+VERSION_RE = re.compile(r"^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?$")
 LINK_RE = re.compile(r"!?\[[^\]]*\]\((<[^>]+>|[^\s)]+)(?:\s+['\"][^'\"]*['\"])?\)")
 FRONTMATTER_RE = re.compile(r"\A---\r?\n(?P<yaml>.*?)\r?\n---\r?\n", re.DOTALL)
 
@@ -49,7 +50,7 @@ def package_path(root: Path, relative: str, checks: Checks, label: str) -> Path 
     return path
 
 
-def validate_frontmatter(skill_dir: Path, checks: Checks) -> None:
+def validate_frontmatter(skill_dir: Path, checks: Checks, expected_version: str | None = None) -> None:
     path = skill_dir / "SKILL.md"
     if not path.is_file():
         checks.errors.append("missing SKILL.md")
@@ -79,6 +80,16 @@ def validate_frontmatter(skill_dir: Path, checks: Checks) -> None:
     if len(values.get("license", [])) == 1:
         checks.require(bool(values["license"][0].strip("\"'")), "license must be nonempty")
         checks.require((skill_dir / "LICENSE").is_file(), "missing bundled skill LICENSE")
+    metadata = re.findall(r"^metadata:[ \t]*\n((?:[ \t]+[^\n]*(?:\n|$))+)",
+                          match.group("yaml"), re.MULTILINE)
+    versions = (re.findall(r"^  version:[ \t]*[\"']?([0-9A-Za-z.-]+)[\"']?[ \t]*$",
+                           metadata[0], re.MULTILINE) if len(metadata) == 1 else [])
+    checks.require(len(versions) == 1, "frontmatter needs exactly one metadata.version")
+    if len(versions) == 1:
+        checks.require(bool(VERSION_RE.fullmatch(versions[0])), "metadata.version must be a release version")
+        if expected_version is not None:
+            checks.require(versions[0] == expected_version,
+                           f"release version mismatch: package {versions[0]}, expected {expected_version}")
 
 
 def validate_links(root: Path, markdown_files: list[Path], checks: Checks, files_only: bool) -> None:
@@ -209,6 +220,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--skill-dir", type=Path, default=None, help="validate an installed skill copy")
     parser.add_argument("--repo-root", type=Path, default=None, help="also require exactly one SKILL.md in the repository")
+    parser.add_argument("--expected-version", help="require the packaged metadata version to match a release (without v)")
     args = parser.parse_args()
     checkout_root = Path(__file__).resolve().parents[1]
     skill_dir = (args.skill_dir or checkout_root / "skills" / SKILL_NAME).resolve()
@@ -227,7 +239,7 @@ def main() -> int:
     nested = [path for path in skill_dir.rglob("SKILL.md") if path != skill_dir / "SKILL.md"]
     checks.require(not nested, f"vendored files must not add another SKILL.md: {nested}")
     if skill_dir.is_dir():
-        validate_frontmatter(skill_dir, checks)
+        validate_frontmatter(skill_dir, checks, args.expected_version)
         runtime_markdown = [path for path in skill_dir.rglob("*.md") if "vendor" not in path.relative_to(skill_dir).parts]
         validate_links(skill_dir, runtime_markdown, checks, files_only=True)
         validate_sources(skill_dir, checks)
