@@ -1,6 +1,6 @@
 # Team orchestration implementation ledger
 
-This work implements the approved parallel-delivery proposal in phases. Baseline: `cbf362f` / SDLC Flow 0.2.0. Candidate version: `0.3.0-team.3`. The earlier precedence experiment and benchmark evidence remain separate. Phase completion records describe actual evidence rather than planned capabilities.
+This work implements the approved parallel-delivery proposal in phases. Baseline: `cbf362f` / SDLC Flow 0.2.0. Candidate version: `0.3.0-team.4`. The earlier precedence experiment and benchmark evidence remain separate. Phase completion records describe actual evidence rather than planned capabilities. Current release gates are tracked in [release qualification](release-qualification.md).
 
 | Phase | Scope | Status | Evidence |
 | --- | --- | --- | --- |

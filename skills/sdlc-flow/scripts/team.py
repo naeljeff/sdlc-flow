@@ -151,15 +151,28 @@ def atomic(path, value):
 
 def immutable(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
-    # Linked/outside ancestors were checked by under().
+    # Publish only a fully flushed file, without replacing an existing artifact.
+    # A process interruption may leave a .pending file, never a partial final.
+    fd, name = tempfile.mkstemp(prefix='.pending-', dir=path.parent)
     try:
-        with open(path, 'x', encoding='utf-8') as stream:
+        with os.fdopen(fd, 'w', encoding='utf-8') as stream:
             json.dump(value, stream, indent=2, sort_keys=True)
             stream.write('\n')
             stream.flush()
             os.fsync(stream.fileno())
-    except FileExistsError:
-        require(read_json(path) == value, 'existing artifact has different content')
+        try:
+            os.link(name, path)
+        except FileExistsError:
+            require(read_json(path) == value, 'existing artifact has different content')
+        if os.name != 'nt':
+            directory = os.open(path.parent, os.O_RDONLY)
+            try:
+                os.fsync(directory)
+            finally:
+                os.close(directory)
+    finally:
+        if os.path.exists(name):
+            os.unlink(name)
 
 
 def brief(value):
@@ -200,6 +213,12 @@ def locked(task, owner=None, revision=None):
         yield state
 
 
+def view_text(value):
+    """Render data as one literal Markdown line, preserving canonical content."""
+    text = json.dumps(value, ensure_ascii=True)[1:-1]
+    return ''.join('\\' + char if char in '\\`*_{}[]()#+-.!|<>~' else char for char in text)
+
+
 def publish(task, state):
     for path in ('state.json', 'memory/facts.json', 'BRIEF.json', 'BRIEF.md', 'STATE.md', 'MEMORY.md'):
         under(task, path)
@@ -208,17 +227,17 @@ def publish(task, state):
     # Views have no authority; a crash may leave them old. status regenerates from JSON.
     atomic(under(task, 'memory/facts.json'), {'revision': state['memory_revision'], 'facts': state['facts']})
     atomic(under(task, 'BRIEF.json'), state['brief'])
-    lines = ['# Effective task brief', '', state['brief']['outcome'], '', '## Acceptance', '']
-    lines += ['- ' + x['id'] + ': ' + x['text'] for x in state['brief']['acceptance']]
+    lines = ['# Effective task brief', '', view_text(state['brief']['outcome']), '', '## Acceptance', '']
+    lines += ['- ' + x['id'] + ': ' + view_text(x['text']) for x in state['brief']['acceptance']]
     for key in ('constraints', 'preserved', 'prohibited', 'interfaces'):
-        lines += ['', '## ' + key.capitalize(), ''] + ['- ' + x for x in state['brief'][key]]
+        lines += ['', '## ' + key.capitalize(), ''] + ['- ' + view_text(x) for x in state['brief'][key]]
     atomic(under(task, 'BRIEF.md'), '\n'.join(lines) + '\n')
     lines = ['# Generated task state', '', 'Authority: state.json. Revision: ' + str(state['revision']), '']
-    lines += ['- ' + x['id'] + ': ' + x['state'] + '; owner ' + x['agent'] + '; live=' + str(x.get('live', False)) + '; next: ' + x['next_action']
+    lines += ['- ' + x['id'] + ': ' + x['state'] + '; owner ' + x['agent'] + '; live=' + str(x.get('live', False)) + '; next: ' + view_text(x['next_action'])
               for x in state['assignments'].values()]
     atomic(under(task, 'STATE.md'), '\n'.join(lines) + '\n')
     lines = ['# Generated memory index', '', 'Authority: state.json. Memory revision: ' + str(state['memory_revision']), '']
-    lines += ['- ' + x['id'] + ' [' + x['kind'] + ', ' + x['status'] + ']: ' + x['text'] for x in state['facts']]
+    lines += ['- ' + x['id'] + ' [' + x['kind'] + ', ' + x['status'] + ']: ' + view_text(x['text']) for x in state['facts']]
     atomic(under(task, 'MEMORY.md'), '\n'.join(lines) + '\n')
 
 
@@ -385,7 +404,9 @@ def run(args):
             fresh(current, task)
             packet = {'task_id': state['task_id'], 'state_revision': state['revision'],
                       'spec_revision': state['spec_revision'], 'memory_revision': current['memory_revision'],
-                      'brief': state['brief'], 'assignment': {k: v for k, v in row.items() if k != 'baseline'}, 'memory_location': str(task / 'memory/facts.json'),
+                      'brief': state['brief'], 'assignment': {k: v for k, v in row.items() if k != 'baseline'},
+                      'memory_location': None,
+                      'memory_status_command': [sys.executable, str(Path(__file__).resolve()), 'status', '--task', str(task)],
                       'result_destination': str(task / 'inbox' / row['agent'] / (row['id'] + '-g' + str(row['generation']) + '.json')),
                       'facts': []}
             scopes = row['owned_paths'] + row.get('shared_reads', [])
@@ -491,7 +512,8 @@ def run(args):
             for fact in value:
                 identifier(fact['id'])
                 require(not any(x['id'] == fact['id'] for x in state['facts']), 'fact ID already exists')
-                require(fact.get('kind') in {'fact', 'decision', 'hypothesis'} and fact.get('text'), 'fact needs kind and text')
+                require(fact.get('kind') in {'fact', 'decision', 'hypothesis'} and
+                        isinstance(fact.get('text'), str) and fact['text'].strip(), 'fact needs kind and text')
                 require(fact.get('confidence') in {'high', 'medium', 'low', 'unknown'}, 'fact confidence required')
                 fact['scope'] = [relative(x) for x in fact['scope']]
                 require(fact['scope'], 'fact requires source scope')

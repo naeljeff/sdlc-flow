@@ -21,6 +21,8 @@ Use JSON, not freeform Markdown:
 
 The latter four lists default to empty. Acceptance IDs must be unique. `state.json` is the only authority. `BRIEF.json`, `BRIEF.md`, `STATE.md`, `MEMORY.md`, `memory/facts.json` and assignment files are projections, which can be older after an interruption. Read `status` or generate a new `context` from canonical state when recovering.
 
+Context packets set `memory_location` to null rather than linking a potentially stale projection. For targeted retrieval beyond the packet, execute its `memory_status_command` argument list and use only facts whose freshly computed status is `current`; read their declared source references as needed. Generate a new packet after relevant source or requirements changes. Generated Markdown renders text as literal single-line data; canonical JSON retains the original text.
+
 ## CLI sequence
 
 All canonical mutations require the recorded `--owner`. This is a consistency check, not authentication. `--expect-revision N` is optional optimistic concurrency: concurrent commands with one expected revision permit exactly one winner. The local OS lock prevents lost updates even without that flag.
