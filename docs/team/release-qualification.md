@@ -33,10 +33,10 @@ checks do not establish their behavioral outcomes.
 | Gate | Required evidence | Current status |
 | --- | --- | --- |
 | Package and helper | Self-contained install; meaningful lifecycle, scope, freshness and artifact checks; independent review | team.4: 23 tests, independent review, clean install and Ubuntu/macOS/Windows CI passed |
-| Fresh-session recovery | Frozen initial session plus ten fresh sessions, requirements changes, interruption, stale gate rejection, dirty preservation, live-worker ownership and final integrated review | team.4 assessment v2.6 stopped: phases 0–4 passed, phase 5 stale-rejection observation failed; independent classification pending; phases 6–10 unlaunched |
+| Fresh-session recovery | Frozen initial session plus ten fresh sessions, requirements changes, interruption, stale gate rejection, dirty preservation, live-worker ownership and final integrated review | team.4 assessment v2.6 stopped: phases 0–4 passed; phase 5 observer false negative independently established; fresh full v2.7 recovery preparation in progress |
 | Current matched pilot | Same source, requirements, model policy and independent outcome review for current candidate and baseline | Twelve-run original plan; first candidate independently accepted after an evaluator evidence-gap reassessment; remaining native runs/reviews in progress |
-| Devflow comparison | Actual controller and native routes, isolated task/configuration, same product acceptance; no existing solution supplied | Default controller context bound blocked implementation; a separate operationally adapted cohort is in preflight; no completed comparative result |
-| Broader task coverage | New source-bound software tasks with observable public outcomes and independently checked graders | Two new TypeScript/Go holdouts; corrected graders and twelve controls independently approved; execution preflight pending |
+| Devflow comparison | Actual controller and native routes, isolated task/configuration, same product acceptance; no existing solution supplied | Default controller context bound blocked implementation; a separate operationally adapted four-run cohort has passed independent preflight; no completed comparative result |
+| Broader task coverage | New source-bound software tasks with observable public outcomes and independently checked graders | Two new TypeScript/Go holdouts; corrected graders and twelve controls independently approved; actual native execution driver prepared; independent exact preflight pending |
 | Workflow accounting | Retained failed attempts, root/worker/reviewer coverage, observed timing and usage without duplicate totals | Full workflow metrics remain unknown; no speed/token/cost superiority claim |
 | Host support | Real coding workflow on each advertised host, with actual permissions and route observations | Codex native routing observed; Claude evidence limited to scoped probe |
 | Stable publication | Current critical gates, exact version/tag, clean install, documented limitations and reversible local update | Not yet eligible |
@@ -121,21 +121,25 @@ Recovery v2.6 stopped automatically at phase 5: Priority, Status and dirty
 preservation passed, but `STALE_REJECTED` did not. The native protected-helper
 command exited 2 and saved its error text through redirection. The evaluator
 expected that text in the raw tool output, which was empty. The original failed
-receipt and report remain unchanged; independent classification must establish
-whether the saved evidence proves the requested rejection before an observer
-repair or new attempt is authorized. Phases 6–10 have not launched. Full recovery
-is still a release blocker.
+receipt and report remain unchanged. Independent inspection established an
+observer false negative: the source-bound helper rejected the same-task obsolete
+revision, emitted the required marker to redirected stderr, and left the gate
+unaccepted. The private observer is being corrected to capture native-event-bound
+redirected evidence, with targeted positive and negative controls. A new full
+eleven-stage trajectory requires a new exact preflight; the old phase is not
+rescored or resumed. Phases 6–10 of v2.6 have not launched. Full recovery remains
+a release blocker.
 
 The default Devflow controller stopped before implementation when a required
 16,926-character context packet exceeded its unchanged installed 16,000-character
 bound. A second repetition was paused after architecture started, with cleanup
 and all attempts retained. These are controller capability/interruption results,
 not completed-patch accuracy measurements. Further known-blocked default runs
-are deferred. A supplemental four-run Devflow cohort is being frozen with only
+are deferred. A supplemental four-run Devflow cohort has passed independent exact preflight with only
 the private context bound raised to 1,000,000 characters, leaving these fixed
 tasks unbounded by that guard. It retains the source, requirements, models,
 effort and controller, and starts from fresh contexts/source without the paused
-plan. Its approval and outcomes must be reported separately from the original
-study. No global Devflow installation or policy is changed.
+plan. Its outcomes must be reported separately from the original study; no adapted
+product run has completed yet. No global Devflow installation or policy is changed.
 
 Do not tag a stable release while the critical recovery gate remains unproven.
