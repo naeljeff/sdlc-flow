@@ -33,7 +33,7 @@ checks do not establish their behavioral outcomes.
 | Gate | Required evidence | Current status |
 | --- | --- | --- |
 | Package and helper | Self-contained install; meaningful lifecycle, scope, freshness and artifact checks; independent review | team.4: 23 tests, independent review, clean install and Ubuntu/macOS/Windows CI passed |
-| Fresh-session recovery | Frozen initial session plus ten fresh sessions, requirements changes, interruption, stale gate rejection, dirty preservation, live-worker ownership and final integrated review | team.4 v2.6 passed phases 0–4, then stopped on redirected stderr; v2.7 stopped at phase 0 on stdout-wrapper observation; both independently classified; v2.8 preparation pending |
+| Fresh-session recovery | Frozen initial session plus ten fresh sessions, requirements changes, interruption, stale gate rejection, dirty preservation, live-worker ownership and final integrated review | team.4 v2.6 passed phases 0–4, then stopped on redirected stderr; v2.7 stopped at phase 0 on stdout-wrapper observation; both independently classified; v2.8 independently preflighted and fresh full execution authorized |
 | Current matched pilot | Same source, requirements, model policy and independent outcome review for current candidate and baseline | Twelve-run original plan; first candidate independently accepted after an evidence-gap reassessment; four native and one adapted run pass automated checks; current fresh reviews authorized |
 | Devflow comparison | Actual controller and native routes, isolated task/configuration, same product acceptance; no existing solution supplied | Default controller context bound blocked implementation; a separate operationally adapted four-run cohort has passed independent preflight; no completed comparative result |
 | Broader task coverage | New source-bound software tasks with observable public outcomes and independently checked graders | Two new TypeScript/Go holdouts; corrected graders and twelve controls independently approved; actual native execution driver and reviewer entrypoint independently approved; two fresh candidate-only runs queued |
@@ -157,19 +157,42 @@ Independent inspection found the Records worker's native tool output contained
 bytes identical to its canonical result; a transparent `text(r.output)` wrapper
 had omitted the nested exit metadata expected by the observer. The public prompt
 required printing identical JSON, not a separately exposed nested exit status.
-The frozen failed grade remains unchanged. A narrow new observer will recognize
-that source-bound stdout pattern while leaving unobserved exit status unknown;
-positive and negative controls and exact independent preflight are required
-before a new full trajectory. No later v2.7 phase launched.
+The frozen failed grade remains unchanged. The approved v2.8 observer recognizes
+that source-bound stdout pattern while leaving unobserved exit status unknown.
+All 128 previous predicate outcomes and 14 product controls were preserved, and
+54 new stdout controls passed independent preflight. A fresh full trajectory is
+authorized; these mechanics do not establish its behavioral result. No later v2.7 phase launched.
 
 Independent packet audits also rejected incomplete controller route coverage
 before judging. The new approved collector reconciles complete attempt receipts
 with bounded native root/descendant metadata, checks rooted parent graphs and
-ordered lifecycle intervals, and reports missing evidence as incomplete. Twenty-
-seven controls cover duplicate/conflicting attempts, cyclic/orphan parent edges,
-omitted descendants, missing inventory, reversed timestamps and capacity. Exact
-generic, original-study and supplemental-study bindings passed independent
-inspection. The collector sends the public brief, final source and safe route
+ordered lifecycle intervals, and reports missing evidence as incomplete. Forty-two
+controls cover duplicate/conflicting attempts, cyclic/orphan parent edges,
+omitted descendants, missing inventory, reversed timestamps and capacity. Native and controller packets supply the same required host-inventory and
+lifecycle evidence. Duplicate native descendant IDs are rejected before role
+mapping. Exact generic, original-study and supplemental-study bindings passed
+independent inspection and actual provider-free approval gates. A dependency-key
+serialization mismatch was caught before any judge started; new immutable
+receipts corrected it, retaining the earlier receipts and rejected launch. The collector sends the public brief, final source and safe route
 metadata; prior negative assessments remain retained. Native host observations do
 not attest upstream provider identity, dynamic mutation scope or shared-workspace
 byte authorship.
+
+## Controller retry disposition
+
+The second adapted TinyDB run completed eight architecture calls, each rejected
+by the official plan validator because the plan listed `git` as a verification
+runner. Its candidate fingerprint and accepted-plan state did not advance. The
+controller's continuous mode removed attempt limits; its repeated-failure check
+compared varying artifact bytes before the common diagnostic, allowing identical
+semantic rejections to retry indefinitely. The operator used the official pause
+and owned-process cleanup, preserving all eight completed attempts and the ninth
+interrupted attempt. This post-launch operational stop is disclosed separately
+from product accuracy; no completed patch is graded for that row.
+
+For a later controller row showing the same established blocker, three consecutive
+completed architecture calls with the identical rejection and no source or plan
+progress trigger the same official pause and cleanup. This is a disclosed stop
+for a known endless operational loop, not a token ceiling or a rescued solver.
+The next adapted task progressed to implementation after its second architecture
+attempt without changes to source, prompts, models or controller policy.
