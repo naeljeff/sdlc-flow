@@ -26,6 +26,8 @@ def subject_env(backend, model=None):
         return None
     env = {key: os.environ[key] for key in SUBJECT_ENV if key in os.environ}
     env["CLAUDE_CODE_DISABLE_AUTO_MEMORY"] = "1"
+    # Print mode otherwise kills background workers 600 s after the root's turn ends; interactive sessions wait.
+    env["CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS"] = "0"
     if model:
         env["CLAUDE_CODE_SUBAGENT_MODEL"] = model
     return env
