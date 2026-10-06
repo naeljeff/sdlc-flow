@@ -3,7 +3,7 @@ name: sdlc-flow
 description: Deliver software through a lightweight solo workflow or one orchestrator coordinating parallel agents, available models, shared task memory, isolated changes, and integrated verification. Use when building, fixing, refactoring, migrating, or continuing software work.
 license: MIT for original content; see THIRD_PARTY_NOTICES.md for bundled sources
 metadata:
-  version: "0.3.0-team.5"
+  version: "0.3.0-team.6"
 ---
 
 # SDLC Flow
@@ -31,8 +31,8 @@ Raise effort when risk warrants it even if the diff is small: authentication, se
 
 1. Pick the smallest useful slice with a checkable result. In existing code, trace its actual callers and data boundaries. For stateful or cross-boundary behavior, identify what must stay true across material changed boundaries or transitions and the distinct likely ways it could fail. For a defect or unexpected test result, load [diagnose.md](references/diagnose.md) before changing code.
 2. Change only what the slice requires, following the repository's architecture and idioms. Keep unrelated work intact. For UI behavior or layout, load [ui.md](references/ui.md) before deciding its design and check the visible result when a browser or device is available.
-3. Run the cheapest check that could expose the likely mistake. A passing unit test, build, HTTP response, or screenshot proves only what it actually exercised. Verify the user's reported symptom or acceptance path when possible. Recheck after the final edit. Keep outputs scoped to the result and diagnostic lines; expand logs when diagnosing a failure. If checks cannot run, name the specific blocker and make no claim of runtime success.
-4. Review the diff for correctness, scope, security-relevant boundaries, and missing checks. Use [review.md](references/review.md) for substantial or high-risk changes. Fix actionable findings and rerun affected checks.
+3. Run the cheapest check that could expose the likely mistake. A passing unit test, build, HTTP response, or screenshot proves only what it actually exercised. Verify the user's reported symptom or acceptance path when possible. Recheck after the final edit. Keep outputs scoped to the result and diagnostic lines; expand logs when diagnosing a failure. If checks cannot run, name the specific blocker and make no claim of runtime success. Confirm each scripted or bulk edit in the diff. An edit that errors or changes nothing, or a check that errors or runs no tests, counts as failed.
+4. Review the diff for correctness, scope (each changed path is needed for the request and within any path limits the user or project set; unrelated and preserved paths unchanged), security-relevant boundaries, and missing checks. Use [review.md](references/review.md) for substantial or high-risk changes. Fix actionable findings and rerun affected checks.
 5. When task-local state exists, checkpoint after a consequential decision, verified slice, material failure, changed requirement, or before handoff. Update its compact slice rows with evidence and keep one exact next action in Current position. Store conclusions and evidence paths, not full logs or a per-tool transcript.
 
 In Team mode, delegate independent ready slices using native subagents. Keep one orchestrator responsible for requirements, shared decisions, integration, and user communication. Workers read common task memory and return bounded results; code writers use isolated workspaces. Queue work within actual host capacity and disable nested delegation by default. Use fresh worker contexts with the effective requirements and relevant evidence rather than cloning the whole conversation.
@@ -41,6 +41,6 @@ Choose available models by assignment risk and demonstrated capability. Preserve
 
 ## Finish
 
-For Team mode, require fresh integrated evidence for every current acceptance ID and a fresh independent review of the combined candidate. Recheck affected evidence after final changes; do not replace this review with the orchestrator's self-review.
+For Team mode, completion means fresh integrated evidence for every current acceptance ID, every changed path inside the permitted scope, and a fresh independent review of the final source. Send any source change made after that review, even a one-line fix, to a reviewer as a delta review before reporting; with the helper, `gate` rejects review evidence for older source. If you stop without it, report the task as incomplete and name the unreviewed changes. The orchestrator's self-review does not substitute for it.
 
 Report what changed, the commands or observations that verified it, what remains unverified, and any unresolved risk. Do not claim completion from code generation or an old test result. Respect the user's authorization and repository policy for staging, commits, pushes, PRs, deployments, and external messages. Do not perform those actions merely because this workflow reached its end.

@@ -6,11 +6,11 @@ Use Team mode for independent substantial slices or when the user requests paral
 
 ## Shape the board
 
-Resolve the effective request, latest clarifications, project rules, starting source, pre-existing changes, and observable acceptance. Give each required outcome an ID. Include behavior to preserve and prohibited effects. Record assumptions requiring a probe. Check the actual contracts and callers before choosing file boundaries.
+Resolve the effective request, latest clarifications, project rules, starting source, pre-existing changes, and observable acceptance. Give each required outcome an ID. Include behavior to preserve and prohibited effects. Record path limits from the request and project rules as brief constraints (permitted paths; paths that must stay unchanged). Without explicit limits, permit only the paths the outcome requires. Owned paths and the final diff stay inside them. Record assumptions requiring a probe. Check the actual contracts and callers before choosing file boundaries.
 
 Break work into runnable feature slices with dependencies. Resolve common interfaces first; assign one owner to shared schemas, lockfiles, routes, or design tokens. Prefer end-to-end feature ownership. Useful independent research or tests may run while a contract owner works. Separate contexts do not make dependent code independent.
 
-The board distinguishes pending, ready, running, review, integrated, verified, blocked, and obsolete. Integrated means applied to the task's candidate; it does not imply a Git commit or publication. Record owner, role/model, workspace, generation, requirements revision, dependencies, acceptance IDs, and evidence per assignment.
+The board distinguishes pending, ready, running, review, integrated, verified, blocked, and obsolete. Integrated means applied to the task's candidate and recorded on the board; it does not imply a Git commit or publication. Record owner, role/model, workspace, generation, requirements revision, dependencies, acceptance IDs, and evidence per assignment.
 
 ## Dispatch
 
@@ -22,7 +22,7 @@ Fill available slots with independent ready work, prioritizing the critical path
 
 ## Isolate writers
 
-Parallel code writers use separate Git worktrees or verified isolated copies. A shared checkout may host read-only workers. Worktrees do not isolate ports, fixture databases, or output directories; allocate those separately.
+Parallel code writers use separate Git worktrees or verified isolated copies. A shared checkout may host read-only workers. Worktrees do not isolate ports, fixture databases, or output directories; allocate those separately. Give each role a fresh unique scratch directory (for example `mktemp -d` under the task directory or the host temp directory) and pass its path in the worker prompt; each role deletes only that directory.
 
 Start each writer from a declared task snapshot. Account for authorized dirty source and task-relevant untracked files. Preserve unrelated changes; a clean worktree does not automatically contain the user's uncommitted code. Record the overlay used to create the task snapshot without resetting or implicitly stashing the user's checkout.
 
@@ -34,11 +34,11 @@ Result contents, file existence, and a worker-authored `worker_ended` field do n
 
 ## Integrate and verify
 
-Check generation, effective requirements, dependency state, patch baseline, owned paths, and evidence before accepting a result. Apply valid changes in dependency order to one integration workspace. Resolve conflicts through one owner and recheck affected contracts. Patch applicability proves syntax of application, not compatibility of behavior.
+Check generation, effective requirements, dependency state, patch baseline, owned paths, and evidence before accepting a result. Apply each valid result in dependency order to one integration workspace so only its changes against the recorded baseline land: apply a diff, or copy a whole file only when the integration copy still matches that baseline; stop on any mismatch or conflict. With the helper, run `transition --to integrated` with the applied manifest right after applying each result and before any checkpoint; a result is integrated only when that command succeeds, and applied source whose assignment is still `review` is reported as not integrated. Resolve conflicts through one owner and recheck affected contracts. Patch applicability proves syntax of application, not compatibility of behavior.
 
-Run checks on the integrated product that reach each required user/API outcome, preserve adjacent supported behavior, and exercise meaningful error/state transitions. Two passing worker suites may still conceal an integration defect. Use [review.md](review.md) for a fresh independent review of the combined candidate in Team mode. Renew affected checks and review evidence after fixes.
+Run checks on the integrated product that reach each required user/API outcome, execute changed documentation examples, preserve adjacent supported behavior, and exercise meaningful error/state transitions. Two passing worker suites may still conceal an integration defect. Use [review.md](review.md) for a fresh independent review of the combined candidate in Team mode. Renew affected checks and review evidence after fixes.
 
-Completion requires fresh evidence for every current acceptance ID, no unresolved blocking finding, preserved unrelated work, and a clear record of unavailable runtime proof. Report first runnable slice and final verified result separately. Publication follows the user's authorization and project rules.
+Completion follows the Team criteria in SKILL.md Finish, with no unresolved blocking finding, unrelated work preserved, and unavailable runtime proof recorded. Report the first runnable slice and the final verified result separately. Publication follows the user's authorization and project rules.
 
 ## Recover
 
