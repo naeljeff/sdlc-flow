@@ -3,7 +3,7 @@ name: sdlc-flow
 description: Deliver software through a lightweight solo workflow or one orchestrator coordinating parallel agents, available models, shared task memory, isolated changes, and integrated verification. Use when building, fixing, refactoring, migrating, or continuing software work.
 license: MIT for original content; see THIRD_PARTY_NOTICES.md for bundled sources
 metadata:
-  version: "0.3.0-team.4"
+  version: "0.3.0-team.5"
 ---
 
 # SDLC Flow

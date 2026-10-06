@@ -380,6 +380,33 @@ class TeamTests(unittest.TestCase):
         self.assertFalse(row['live'])
         self.assertEqual(row['results'], ['inbox/worker-a/a-g1.json'])
 
+    def test_worker_written_result_may_omit_unknown_metadata(self):
+        for key, metadata in (('a', None), ('b', {'agent_id': 'native-b'})):
+            workspace = self.add(key, 'src/' + key + '.py')
+            self.running(key)
+            destination = Path(self.cli('context', '--assignment', key, '--max-chars', 10000)['result_destination'])
+            (workspace / 'src' / (key + '.py')).write_text(key + ' = 2\n')
+            value = self.result(key)
+            if metadata is not None:
+                value['metadata'] = metadata
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.write_text(json.dumps(value))
+            original = destination.read_bytes()
+            self.cli('ingest', '--input', destination)
+            row = self.state()['assignments'][key]
+            self.assertEqual(row['state'], 'review')
+            self.assertEqual(destination.read_bytes(), original)
+            self.assertEqual(row['result_hashes'][row['results'][-1]], team.digest(destination))
+
+        workspace = self.add('c', 'src/c.py')
+        self.running('c')
+        destination = Path(self.cli('context', '--assignment', 'c', '--max-chars', 10000)['result_destination'])
+        (workspace / 'src/c.py').write_text('c = 2\n')
+        value = self.result('c')
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_text(json.dumps(dict(value, next_action='Something else.')))
+        self.cli('ingest', '--input', self.write('c-result.json', value), fail='existing artifact has different content')
+
     def test_worker_text_cannot_forge_markdown_projection_rows(self):
         workspace = self.add()
         self.running()

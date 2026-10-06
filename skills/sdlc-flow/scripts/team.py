@@ -498,7 +498,14 @@ def run(args):
             shared_current(state, task, row, actual, value['checks'])
             value['metadata'] = metadata(value.get('metadata', {}))
             path = under(task, 'inbox/' + row['agent'] + '/' + row['id'] + '-g' + str(row['generation']) + '.json')
-            immutable(path, value)
+            if path.exists() or path.is_symlink():
+                require(path.is_file() and not path.is_symlink(), 'result destination must be a regular file')
+                existing = read_json(path)
+                # Omitted worker metadata means unknown; keep the worker's immutable bytes.
+                require(isinstance(existing, dict) and dict(existing, metadata=metadata(existing.get('metadata', {}))) == value,
+                        'existing artifact has different content')
+            else:
+                immutable(path, value)
             artifact = path.relative_to(task).as_posix()
             row['results'].append(artifact)
             row['result_hashes'][artifact] = digest(path)
