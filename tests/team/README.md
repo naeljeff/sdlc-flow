@@ -34,10 +34,21 @@ python3 tests/team/probe.py --backend codex \
 For Claude, select `--backend claude` and only a model/effort supported by that
 installation. A new session ID is requested for every invocation. Codex uses
 fresh `exec`, JSON events, workspace-write sandbox, and native multi-agent mode.
-Claude uses print/stream-json with acceptEdits and no interactive approval
-prompts. They are distinct backends; do not compare them as a matched workflow
-experiment. Permission denials are real capability failures, not permission to
-disable protections.
+Claude uses print/stream-json with `bypassPermissions`, because `acceptEdits`
+without prompts denies compound shell commands. Its seatbelt sandbox stays on by
+default and cannot be escaped. Claude subjects get an allow-listed environment
+(no inherited auth, effort, proxy or model overrides; auto-memory off; subagent
+model pinned to the route model), no MCP servers, and no Workflow, artifact,
+web, cron or remote-trigger tools. Run them in a disposable directory outside
+any folder with an ancestor `CLAUDE.md` or `AGENTS.md`.
+
+The sandbox hides other processes from `ps`, which live-worker recovery must
+observe. Only for that, opt in with `--claude-unsandboxed` (probe CLI) or
+`"claude_unsandboxed": true` in the reviewed route. The subject's shell and file
+tools can then reach anything your account can, so use a disposable machine or
+account, launch the runner from an unsandboxed shell, and compare protected
+paths before and after the run. They are distinct backends; do not compare them
+as a matched workflow experiment.
 
 An optional `--timeout SECONDS` is an operational interruption, never a token
 budget or successful completion. Retries get new immutable directories; retain

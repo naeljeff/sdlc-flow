@@ -15,6 +15,21 @@ import threading
 import time
 import uuid
 
+CLAUDE_DISALLOWED = ["Workflow", "Artifact", "ArtifactComments", "ArtifactData", "RemoteTrigger", "PushNotification",
+                     "CronCreate", "CronDelete", "WebFetch", "WebSearch", "DesignSync", "ScheduleWakeup"]
+SUBJECT_ENV = ("PATH", "HOME", "USER", "LOGNAME", "SHELL", "LANG", "LC_ALL", "TERM")
+
+
+def subject_env(backend, model=None):
+    """Claude subjects must not inherit a launching session's auth, effort, proxy or model overrides."""
+    if backend != "claude":
+        return None
+    env = {key: os.environ[key] for key in SUBJECT_ENV if key in os.environ}
+    env["CLAUDE_CODE_DISABLE_AUTO_MEMORY"] = "1"
+    if model:
+        env["CLAUDE_CODE_SUBAGENT_MODEL"] = model
+    return env
+
 
 def digest(data):
     return hashlib.sha256(data).hexdigest()
@@ -65,7 +80,8 @@ def private_directory(path, workspace):
     return path
 
 
-def native_argv(backend, workspace, model=None, effort=None, concurrency=None, allowed_directories=(), allowed_tools=()):
+def native_argv(backend, workspace, model=None, effort=None, concurrency=None, allowed_directories=(), allowed_tools=(),
+                claude_unsandboxed=False):
     if backend == "codex":
         argv = ["codex", "exec", "--json", "--color", "never", "--sandbox",
                 "workspace-write", "--enable", "multi_agent", "--skip-git-repo-check", "--cd", str(workspace)]
@@ -79,9 +95,14 @@ def native_argv(backend, workspace, model=None, effort=None, concurrency=None, a
             argv += ["--add-dir", str(Path(directory).resolve())]
         return argv + ["-"]
     if backend == "claude":
+        # Unsandboxed is explicit opt-in only: the seatbelt sandbox hides processes that live-worker recovery must observe.
+        sandbox = ({"enabled": False} if claude_unsandboxed else
+                   {"enabled": True, "autoAllowBashIfSandboxed": True, "allowUnsandboxedCommands": False})
         argv = ["claude", "--print", "--verbose", "--output-format", "stream-json",
-                "--forward-subagent-text",
-                "--permission-mode", "acceptEdits", "--permission-prompts", "none",
+                "--forward-subagent-text", "--setting-sources", "project,local",
+                "--settings", json.dumps({"sandbox": sandbox, "autoMemoryEnabled": False, "bashOutputMaxChars": 128000}),
+                "--permission-mode", "bypassPermissions", "--strict-mcp-config",
+                "--disallowedTools", *CLAUDE_DISALLOWED,
                 "--session-id", str(uuid.uuid4())]
         if allowed_tools:
             approved = {"Bash(python3 overlap.py a)", "Bash(python3 overlap.py b)"}
@@ -129,7 +150,7 @@ def metadata(events, backend):
                     root_models.add(event["model"])
             if kind == "assistant" and isinstance(event.get("message"), dict):
                 message = event["message"]
-                if message.get("model"):
+                if message.get("model") and message["model"] != "<synthetic>":
                     models.add(message["model"])
                     parent = event.get("parent_tool_use_id")
                     if parent:
@@ -244,7 +265,8 @@ def codex_descendants(session_ids):
 
 
 def run_session(workspace, output, prompt, backend, model=None, effort=None,
-                concurrency=None, timeout=None, allowed_directories=(), expected_root_models=None, allowed_tools=()):
+                concurrency=None, timeout=None, allowed_directories=(), expected_root_models=None, allowed_tools=(),
+                claude_unsandboxed=False):
     workspace = Path(workspace).resolve()
     output = Path(output).resolve()
     private_directory(output.parent, workspace)
@@ -252,7 +274,7 @@ def run_session(workspace, output, prompt, backend, model=None, effort=None,
         if inside(output, directory) or inside(directory, output) or inside(output.parent, directory):
             raise ValueError("Writable worker grants must not overlap private receipts")
     output.mkdir(mode=0o700)  # A retry is a new directory, never overwritten.
-    argv = native_argv(backend, workspace, model, effort, concurrency, allowed_directories, allowed_tools)
+    argv = native_argv(backend, workspace, model, effort, concurrency, allowed_directories, allowed_tools, claude_unsandboxed)
     (output / "prompt.txt").write_text(prompt)
     initial = inventory(workspace)
     started_utc = datetime.now(timezone.utc).isoformat()
@@ -271,7 +293,7 @@ def run_session(workspace, output, prompt, backend, model=None, effort=None,
     process = None
     try:
         with (output / "stdout.jsonl").open("wb") as stdout, (output / "stderr.log").open("wb") as stderr:
-            process = subprocess.Popen(argv, cwd=workspace, stdin=subprocess.PIPE,
+            process = subprocess.Popen(argv, cwd=workspace, stdin=subprocess.PIPE, env=subject_env(backend, model),
                                        stdout=subprocess.PIPE, stderr=stderr, start_new_session=True)
             receipt["process_pid"] = process.pid
             write_json(output / "receipt.json", receipt)
@@ -421,12 +443,14 @@ def main():
     parser.add_argument("--add-dir", type=Path, action="append", default=[], help="Explicit isolated worker workspace root")
     parser.add_argument("--allow-tool", action="append", default=[], help="Reviewed exact inert overlap command only")
     parser.add_argument("--timeout", type=float, help="Operational seconds; an interrupted run is not a completion")
+    parser.add_argument("--claude-unsandboxed", action="store_true",
+                        help="Disable Claude's seatbelt sandbox; only for disposable hosts where process liveness must be observed")
     args = parser.parse_args()
     if args.concurrency is not None and args.concurrency < 1:
         parser.error("concurrency must be positive")
     result = run_session(args.workspace, args.output, args.prompt.read_text(), args.backend,
                          args.model, args.effort, args.concurrency, args.timeout, args.add_dir, args.expected_root_model,
-                         args.allow_tool)
+                         args.allow_tool, args.claude_unsandboxed)
     print(json.dumps({key: result[key] for key in ("status", "reported_models", "reported_usage", "duration_seconds")}))
     raise SystemExit(0 if result["status"] == "completed" else 1)
 

@@ -108,7 +108,7 @@ def controlled_session(work, output, prompt, route, phase, allowed_directories):
     if lifecycle == "complete":
         return run_session(work, output, prompt, route["backend"], route.get("model"), route.get("effort"),
                            route["concurrency"], phase.get("interrupt_after_seconds"), allowed_directories,
-                           route["expected_root_models"])
+                           route["expected_root_models"], claude_unsandboxed=route.get("claude_unsandboxed", False))
     private_directory(output.parent, work)
     supervisor_root = output.parent.parent / "supervisors"
     supervisor_root.mkdir(exist_ok=True)
@@ -124,6 +124,8 @@ def controlled_session(work, output, prompt, route, phase, allowed_directories):
         argv += ["--expected-root-model", identity]
     for directory in allowed_directories:
         argv += ["--add-dir", str(directory)]
+    if route.get("claude_unsandboxed"):
+        argv.append("--claude-unsandboxed")
     marker = work / phase["marker"]
     if marker.exists():
         raise ValueError("Controlled marker already exists; cannot use stale readiness")

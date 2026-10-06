@@ -336,7 +336,8 @@ def run_one(args):
     write_json(args.pilot, state)
     receipt = run_session(work, attempt_path, Path(run["prompt"]).read_text(), route["backend"],
                           route.get("model"), route.get("effort"), route["concurrency"], args.timeout,
-                          [Path(run["worker_workspace_base"])], route["expected_root_models"])
+                          [Path(run["worker_workspace_base"])], route["expected_root_models"],
+                          claude_unsandboxed=route.get("claude_unsandboxed", False))
     task = next(t for t in manifest["tasks"] if t["id"] == run["task"])
     snapshot = root / f"snapshot-{len(run['attempts'])}"
     copy_source(work, snapshot)
