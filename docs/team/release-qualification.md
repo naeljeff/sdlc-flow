@@ -9,6 +9,17 @@ public prompt never requested, while the captured stderr bytes already showed th
 expected `obsolete requirements` rejection. The Codex sections below are the
 historical record up to that point.
 
+## 0.3.0 release gates
+
+| Gate | Result |
+| --- | --- |
+| Package and helper | Validator, 24 helper tests, evaluator self-test, release-identity tests, clean install, and Ubuntu/macOS/Windows CI on the release commit |
+| Fresh-session recovery | Passed: 11/11 sessions, 10/10 resets on Claude Code with `0.3.0-team.7` |
+| Correctness pilot on the declared host | 4/4 product passes, 3/4 objective passes; the failing run kept an out-of-scope `CHANGELOG.md` edit |
+| Host support | Claude Code qualified with `claude-sonnet-5-5` roots and workers; Codex routing observed in earlier phases |
+| Workflow accounting | Per-session reported cost recorded; no speed or cost superiority claim |
+| Comparison with `dev` or Devflow | Not a release gate and not claimed |
+
 Qualification started on 2026-10-05 from commit `7438335`, package
 `0.3.0-team.3`. Implementation publication is separate from release acceptance.
 The candidate remains a development version until the critical gates below have
