@@ -8,13 +8,21 @@ The skill uses the agent's ordinary tools. No separately installed controller, d
 
 ## Install
 
-Install globally for Codex with the [skills CLI](https://github.com/vercel-labs/skills):
+Install globally for every coding agent supported by the [skills CLI](https://github.com/vercel-labs/skills):
 
 ```sh
-npx skills add naeljeff/sdlc-flow --skill sdlc-flow -g -a codex --copy -y
+npx skills add naeljeff/sdlc-flow --skill sdlc-flow -g -a '*' --copy -y
 ```
 
-Install for Codex and Claude Code together:
+`-a '*'` copies the skill into each supported agent's user-level skills directory: with skills CLI 1.7.0 that is 56 agents, including Claude Code (`~/.claude/skills`), the shared `~/.agents/skills` directory that Codex and several other agents read, Windsurf, Kiro, Roo, Goose, Qwen Code and Trae. Agents that only support project installs (for example Eve and PromptScript) are skipped with a message; install those per project. Keep the quotes around `*` so the shell does not expand it.
+
+Pin the install to this release:
+
+```sh
+npx skills add https://github.com/naeljeff/sdlc-flow/tree/v0.3.0/skills/sdlc-flow --skill sdlc-flow -g -a '*' --copy -y
+```
+
+Install for selected agents only by repeating `-a`, for example Codex and Claude Code:
 
 ```sh
 npx skills add naeljeff/sdlc-flow --skill sdlc-flow -g -a codex -a claude-code --copy -y
