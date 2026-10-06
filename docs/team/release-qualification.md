@@ -1,5 +1,14 @@
 # Release qualification
 
+**Update 2026-10-06:** the remaining recovery and declared-host pilot gates are being
+qualified on Claude Code (`claude-sonnet-5-5`) against candidates `0.3.0-team.5`
+to `0.3.0-team.7`; see [Claude Code qualification](claude-qualification.md). The
+Codex v2.8 phase-5 stop below was independently classified as an observer false
+negative: the observer required a subject-written `stderr_sha256` field that the
+public prompt never requested, while the captured stderr bytes already showed the
+expected `obsolete requirements` rejection. The Codex sections below are the
+historical record up to that point.
+
 Qualification started on 2026-10-05 from commit `7438335`, package
 `0.3.0-team.3`. Implementation publication is separate from release acceptance.
 The candidate remains a development version until the critical gates below have
