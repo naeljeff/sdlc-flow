@@ -26,6 +26,8 @@ A host's CLI can be used for a separate already-authenticated worker when that r
 
 Use the exposed native Agent/Task and message/wait controls, with supported per-invocation or defined-agent model choices. A normal subagent may start without the main conversation or its memory; supply the versioned task packet explicitly. Keep task knowledge independent of host-specific auto memory. Apply the host's actual nesting and capacity limits.
 
+Record the Agent description as the worker's observable task name. A foreground Agent call blocks the orchestrator until that worker returns; use `run_in_background` when the orchestrator must keep integrating or observe a still-running worker, then act on its completion notification. Workers inherit the session model unless the call or host configuration selects one, and built-in agent types can default to another model, so set the model explicitly when the route requires one. A sandboxed shell may hide other processes; when OS liveness checks are unavailable, preserve live ownership rather than infer termination.
+
 An installed Claude CLI is not proof of authentication, tool availability, or a successful heterogeneous route. Validate the selected route without changing credentials/configuration. Do not register global agent definitions as a prerequisite to this package.
 
 ## Other hosts and external providers
