@@ -1,7 +1,8 @@
 # Claude Code qualification for 0.3.0
 
-**Status: final `0.3.0-team.7` runs in progress; results below are filled in as
-each gate completes.**
+**Status: both gates passed on `0.3.0-team.7`.** Full eleven-session recovery
+passed (11/11 sessions, 10/10 fresh resets); the correctness pilot produced 4/4
+product passes and 3/4 objective passes, with one documented scope failure.
 
 The Codex qualification left two release gates open: full eleven-session
 recovery and a correctness pilot on the declared host. This record covers both
@@ -65,7 +66,34 @@ pilot subjects. Earlier results are retained as superseded evidence.
 | --- | --- | --- | --- |
 | team.5 | Phases 0–7 passed; phase 8 failed: the fresh root applied the live worker's result to source but never recorded `transition --to integrated` | Automated 3/4; independent review 1/4 | Helper rejected worker results that omitted unknown metadata (found in harness review; fixed before runs). Runs showed edits after review without re-review, an out-of-scope `CHANGELOG.md`, a reviewer running `git stash` in the integration tree |
 | team.6 | Phase 0 failed: a worker reported `partial` because its assigned check could not run and the result template modeled `partial` | Automated 3/4; independent review 3/4 | Post-review re-review fixed in 4/4 runs and docs examples executed in 4/4; one run kept `CHANGELOG.md` written through a `docs/` symlink |
-| team.7 | First trajectory: phases 0–5 passed; phase 6 stopped because headless print mode killed the root's background reviewer 600 s after the root ended its turn (a harness setting; interactive sessions wait). Rerun with `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0` in progress | Automated 3/4; independent review 3/4 (objective passes recorded) | Concrete pre-report scope check from version-control paths, worker slice-status semantics, assigned checks confirmed runnable, verbatim path limits for reviewers |
+| team.7 | First trajectory: phases 0–5 passed; phase 6 stopped because headless print mode killed the root's background reviewer 600 s after the root ended its turn (a harness setting; interactive sessions wait). Rerun with `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0`: **all 11 sessions passed** | Automated 3/4; independent review 3/4 (objective passes recorded) | Concrete pre-report scope check from version-control paths, worker slice-status semantics, assigned checks confirmed runnable, verbatim path limits for reviewers |
+
+## Final recovery: 0.3.0-team.7
+
+Recovery manifest `eff4be2fd063eaf06e96d50e8e5cb5f6292d5dc1dd0d97a6e556587306bd6bdf`,
+specification `7e489d969ac0bab1e74cf3e09bfbd6ff763826f986a2f5f4e8beb5f7901679df`,
+control audit `2000e258d2d27a9b275073e503c5de930a61ef258b9ccbe915efa73b6a3acc57`,
+task source `a524d3b8dd95a83497f10ec82e07ccf7eb402724b047a97d019e8f24cfefad19`.
+
+| Phase | Scenario | Checks | CLI time | Reported cost |
+| --- | --- | --- | --- | --- |
+| 0 | Two workers complete; results saved but not ingested | BOOT, COMPLETED_PENDING, DIRTY | 340 s | $1.10 |
+| 1 | Fresh root ingests original results, adds CLI writer, review, gate | 7/7 | 1214 s | $2.43 |
+| 2 | Controlled failed command diagnosed | 6/6 | 112 s | $0.83 |
+| 3 | Checkpoint, then the root process is killed | 3/3 | 64 s | interrupted |
+| 4 | STATUS requirement change, writer, review, gate | 6/6 | 896 s | $1.70 |
+| 5 | PRIORITY change; the old gate is rejected as obsolete | 4/4 | 310 s | $1.17 |
+| 6 | All outcomes and review renewed; current gate | 4/4 | 315 s | $1.01 |
+| 7 | EXPORT worker kept live across the session boundary | 5/5 | 279 s | $1.12 |
+| 8 | Fresh root observes the live worker, releases it, ingests and integrates its original result, no replacement | 5/5 | 299 s | $0.66 |
+| 9 | LIMIT change through a writer | 5/5 | 449 s | $1.34 |
+| 10 | All seven acceptance IDs, independent reviewer runs helper status, current memory and constraints, gate | 13/13 | 1312 s | $2.69 |
+
+Every root reported `claude-sonnet-5-5`. The report records all native root
+receipts terminal, final evidence current for the final source, about 93 minutes
+of root CLI time and $14.06 of reported cost; the interrupted phase-3 session
+reports no usage, so the total is a lower bound. Protected paths outside the test
+roots were unchanged apart from the operator's own commits.
 
 ## Final pilot: 0.3.0-team.7
 
