@@ -65,7 +65,37 @@ pilot subjects. Earlier results are retained as superseded evidence.
 | --- | --- | --- | --- |
 | team.5 | Phases 0–7 passed; phase 8 failed: the fresh root applied the live worker's result to source but never recorded `transition --to integrated` | Automated 3/4; independent review 1/4 | Helper rejected worker results that omitted unknown metadata (found in harness review; fixed before runs). Runs showed edits after review without re-review, an out-of-scope `CHANGELOG.md`, a reviewer running `git stash` in the integration tree |
 | team.6 | Phase 0 failed: a worker reported `partial` because its assigned check could not run and the result template modeled `partial` | Automated 3/4; independent review 3/4 | Post-review re-review fixed in 4/4 runs and docs examples executed in 4/4; one run kept `CHANGELOG.md` written through a `docs/` symlink |
-| team.7 | In progress | In progress | Concrete pre-report scope check from version-control paths, worker slice-status semantics, assigned checks confirmed runnable, verbatim path limits for reviewers |
+| team.7 | In progress | Automated 3/4; independent review 3/4 (objective passes recorded) | Concrete pre-report scope check from version-control paths, worker slice-status semantics, assigned checks confirmed runnable, verbatim path limits for reviewers |
+
+## Final pilot: 0.3.0-team.7
+
+Package tree `50c835c94c4f34ee6ea4352201c3e736aac8db7951be7fcd30ddf5d250638a61`
+(commit `2e53354`), pilot manifest digest
+`aa706730e566a875ab8b2629cb3ddc16443cdb2a7e225acc43d62e3ef0a7364a`, audit
+`92557be8b16c625846eb8bcd0c0027132b56a74e7feb061f094fafba19f15f97`.
+
+| Run | Product checks | Scope | Independent review | Objective pass | Time / reported cost |
+| --- | --- | --- | --- | --- | --- |
+| TinyDB 1 | T1–T4 pass | clean | T5 and ROUTE approved | yes | 584 s / $1.76 |
+| TinyDB 2 | T1–T4 pass | clean | T5 and ROUTE approved | yes | 241 s / $1.17 |
+| python-dotenv 1 | D1–D4 pass | clean | D5 and ROUTE approved | yes | 359 s / $1.27 |
+| python-dotenv 2 | D1–D4 pass | `CHANGELOG.md` outside allowed paths | D5 approved, ROUTE rejected | no | 246 s / $1.03 |
+
+Every run used two feature owners at the same time in their own copies, then an
+independent reviewer of the integrated candidate; every post-review source
+change went to a delta reviewer. All root and worker messages reported
+`claude-sonnet-5-5`. The independent reviewer re-ran each snapshot's tests with
+pytest, confirmed the new tests fail against the base revision and catch
+targeted mutants, and executed the changed documentation examples.
+
+The rejected run listed its changed paths before reporting, as the skill now
+requires, but kept the `CHANGELOG.md` entry and reported it as documentation;
+the skill's wording "revert or report" allowed that. The same repetition of this
+task wrote `CHANGELOG.md` in all three candidates. That run also used
+`git stash` in the integration tree to compare against the base revision,
+leaving unreachable stash objects. Tightening the scope rule to revert
+out-of-scope changes is a follow-up; it changes the package and needs a new
+qualification.
 
 ## Limits
 
