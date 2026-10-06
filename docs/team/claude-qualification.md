@@ -65,7 +65,7 @@ pilot subjects. Earlier results are retained as superseded evidence.
 | --- | --- | --- | --- |
 | team.5 | Phases 0–7 passed; phase 8 failed: the fresh root applied the live worker's result to source but never recorded `transition --to integrated` | Automated 3/4; independent review 1/4 | Helper rejected worker results that omitted unknown metadata (found in harness review; fixed before runs). Runs showed edits after review without re-review, an out-of-scope `CHANGELOG.md`, a reviewer running `git stash` in the integration tree |
 | team.6 | Phase 0 failed: a worker reported `partial` because its assigned check could not run and the result template modeled `partial` | Automated 3/4; independent review 3/4 | Post-review re-review fixed in 4/4 runs and docs examples executed in 4/4; one run kept `CHANGELOG.md` written through a `docs/` symlink |
-| team.7 | In progress | Automated 3/4; independent review 3/4 (objective passes recorded) | Concrete pre-report scope check from version-control paths, worker slice-status semantics, assigned checks confirmed runnable, verbatim path limits for reviewers |
+| team.7 | First trajectory: phases 0–5 passed; phase 6 stopped because headless print mode killed the root's background reviewer 600 s after the root ended its turn (a harness setting; interactive sessions wait). Rerun with `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0` in progress | Automated 3/4; independent review 3/4 (objective passes recorded) | Concrete pre-report scope check from version-control paths, worker slice-status semantics, assigned checks confirmed runnable, verbatim path limits for reviewers |
 
 ## Final pilot: 0.3.0-team.7
 
