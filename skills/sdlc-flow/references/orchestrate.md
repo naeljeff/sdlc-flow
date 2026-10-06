@@ -14,7 +14,7 @@ The board distinguishes pending, ready, running, review, integrated, verified, b
 
 ## Dispatch
 
-The orchestrator owns canonical task state and accepted memory. Give every worker a bounded assignment: outcome, current constraints, relevant acceptance IDs, dependencies, source snapshot, owned paths, workspace, checks, shared-memory revision, result destination, and next action. Use the packaged contracts; the same fields can be maintained through host file tools when the optional helper is unavailable.
+The orchestrator owns canonical task state and accepted memory. Give every worker a bounded assignment: outcome, current constraints, relevant acceptance IDs, dependencies, source snapshot, owned paths, workspace, checks, shared-memory revision, result destination, and next action. Run each assigned check in the writer's starting copy before dispatch to confirm it executes; it may fail on the missing behavior, not on setup. Use the packaged contracts; the same fields can be maintained through host file tools when the optional helper is unavailable.
 
 Workers read shared facts before acting on an interface and before returning a result. They submit sourced discoveries in their own inbox; they do not rewrite shared decisions or launch untracked agents. If a contract or ownership must change, return a request to the orchestrator. Checkpoint partial work before a handoff. See [shared-memory.md](shared-memory.md).
 
@@ -26,7 +26,7 @@ Parallel code writers use separate Git worktrees or verified isolated copies. A 
 
 Start each writer from a declared task snapshot. Account for authorized dirty source and task-relevant untracked files. Preserve unrelated changes; a clean worktree does not automatically contain the user's uncommitted code. Record the overlay used to create the task snapshot without resetting or implicitly stashing the user's checkout.
 
-Each worker returns complete/partial/blocked/failed status, actual changed paths, patch baseline, checks with source identities, limitations, proposed memory updates, observable model metadata, and exact next action. Do not accept a status sentence as verification.
+Status describes the assigned slice: complete when its owned outcome is implemented and its assigned checks pass, partial only when part of that slice remains; combined acceptance and review belong to the orchestrator. Each worker returns complete/partial/blocked/failed status, actual changed paths, patch baseline, checks with source identities, limitations, proposed memory updates, observable model metadata, and exact next action. Do not accept a status sentence as verification.
 
 When the helper context supplies `result_destination`, use that exact task-owned path for the worker's durable result JSON. Keep source edits in the isolated writer copy. Do not invent a parallel result filename: after a reset, the next orchestrator must find the same result without replaying the worker conversation. After confirming the exact native task has terminated, validate the result's assignment, generation, requirements revision, snapshot, manifest and checks, then ingest that same path with `--worker-ended` before checkpointing or resetting. Ingestion records the immutable result in canonical task state and moves a complete or partial result to `review`; it does not integrate the patch or pass the final acceptance gate. If the file already exists at `result_destination`, ingestion verifies it matches before indexing it. A fresh root can recover the indexed review result and continue integration.
 

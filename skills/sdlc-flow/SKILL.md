@@ -3,7 +3,7 @@ name: sdlc-flow
 description: Deliver software through a lightweight solo workflow or one orchestrator coordinating parallel agents, available models, shared task memory, isolated changes, and integrated verification. Use when building, fixing, refactoring, migrating, or continuing software work.
 license: MIT for original content; see THIRD_PARTY_NOTICES.md for bundled sources
 metadata:
-  version: "0.3.0-team.6"
+  version: "0.3.0-team.7"
 ---
 
 # SDLC Flow
@@ -40,6 +40,8 @@ In Team mode, delegate independent ready slices using native subagents. Keep one
 Choose available models by assignment risk and demonstrated capability. Preserve explicit user model preferences; record unavailable selection or identity honestly. A separate high-risk reviewer checks an unresolved invariant or acceptance path; repeating the implementer's tests rarely adds value. Agent completion is an input to integration, not product completion. Sequential work stays in one context.
 
 ## Finish
+
+Before reporting, list the changed paths as version control reports them (for example `git status --porcelain`, which also shows writes made through symlinks) and check each against the request's path limits and the paths that must stay unchanged; revert or report any outside them.
 
 For Team mode, completion means fresh integrated evidence for every current acceptance ID, every changed path inside the permitted scope, and a fresh independent review of the final source. Send any source change made after that review, even a one-line fix, to a reviewer as a delta review before reporting; with the helper, `gate` rejects review evidence for older source. If you stop without it, report the task as incomplete and name the unreviewed changes. The orchestrator's self-review does not substitute for it.
 

@@ -5,7 +5,7 @@
   "generation": 1,
   "spec_revision": 1,
   "snapshot": "copy-from-context",
-  "status": "partial",
+  "status": "complete",
   "manifest": [
     {
       "path": "src/feature-a/index.py",
@@ -29,7 +29,7 @@
   "proposed_facts": [],
   "findings": [],
   "limitations": [
-    "Combined acceptance and independent review still require the integration workspace."
+    "Checked through the slice's own tests; combined behavior is verified after integration."
   ],
   "next_action": "Integrate the slice and run combined outcome checks.",
   "metadata": {

@@ -1,6 +1,6 @@
 # Review the actual diff and completion evidence
 
-For Team mode, review the integrated candidate in a fresh independent context. Give the reviewer current acceptance IDs, constraints, permitted and preserved paths, combined diff, source identity, and evidence. Provide the reviewer its own disposable copies of the candidate and of the starting revision (for example via `git worktree add`) for probes and base comparisons, and tell it to leave the integration workspace's files, index, refs, and stash unchanged. Verify combined behavior beyond the workers' local checks; renew affected review evidence after source or requirements change. Worker completion and a reviewer's approval sentence do not establish acceptance by themselves.
+For Team mode, review the integrated candidate in a fresh independent context. Give the reviewer current acceptance IDs, constraints, the permitted and preserved paths as the request states them, combined diff, source identity, and raw evidence rather than your conclusions about it. Provide the reviewer its own disposable copies of the candidate and of the starting revision (for example via `git worktree add`) for probes and base comparisons, and tell it to leave the integration workspace's files, index, refs, and stash unchanged. Verify combined behavior beyond the workers' local checks; renew affected review evidence after source or requirements change. Worker completion and a reviewer's approval sentence do not establish acceptance by themselves.
 
 In solo mode, review in proportion to the change. For substantial or high-risk work, do this explicitly before claiming completion; a separate reviewer is optional when an independent context would materially help. Team mode follows the independent gate above.
 
@@ -13,7 +13,7 @@ Use an independent reviewer when a consequential failure could hide in a state t
 - Trace changed behavior through callers, validation, persistence, transport, and UI rather than judging only the edited function.
 - Look for incorrect assumptions, missing cases, data loss, races, unsafe input handling, widened authorization, secrets, and dependency or configuration changes.
 - For changes on trust boundaries, follow input from source to sink and check authentication, authorization, validation, and error handling at the actual enforcement point. For performance-sensitive paths, inspect likely hot paths and measure before claiming an improvement.
-- Check that new tests exercise the reported symptom or acceptance path and that they could fail for a broken implementation.
+- Check that new tests exercise the reported symptom or acceptance path and that they could fail for a broken implementation. Run mutation or other destructive probes only in disposable copies, and count a mutant only after confirming its diff is non-empty.
 - For stateful or cross-boundary changes, challenge the planned invariants and checks for omitted material failure modes, including changed state, delayed work, partial results, and error translation. Check that the final evidence reaches the caller or user, not just the edited component.
 - Remove unnecessary abstractions, dead code, and scope expansion. Explain any material concern left open.
 
